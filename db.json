@@ -1,0 +1,97 @@
+{
+  "orders": [
+    {
+      "id": "ORD1001",
+      "orderDate": "2025-04-25",
+      "billTo": "Acme Supplies Ltd.",
+      "status": "approved",
+      "products": [
+        {
+          "name": "Blue Widget",
+          "quantity": 10,
+          "unitPrice": 15.5,
+          "lineTotal": 155.0
+        },
+        {
+          "name": "Red Widget",
+          "quantity": 5,
+          "unitPrice": 22.0,
+          "lineTotal": 110.0
+        }
+      ],
+      "total": 265.0
+    },
+    {
+      "id": "ORD1002",
+      "orderDate": "2025-04-28",
+      "billTo": "BrightTech Co.",
+      "status": "pending",
+      "products": [
+        {
+          "name": "USB Cables (Pack of 20)",
+          "quantity": 3,
+          "unitPrice": 50.0,
+          "lineTotal": 150.0
+        }
+      ],
+      "total": 150.0
+    },
+    {
+      "id": "ORD1003",
+      "orderDate": "2025-05-01",
+      "billTo": "Nova Retailers",
+      "status": "draft",
+      "products": [
+        {
+          "name": "Thermal Printer",
+          "quantity": 2,
+          "unitPrice": 120.0,
+          "lineTotal": 240.0
+        },
+        {
+          "name": "Printer Paper Rolls (Box of 50)",
+          "quantity": 1,
+          "unitPrice": 35.0,
+          "lineTotal": 35.0
+        }
+      ],
+      "total": 275.0
+    },
+    {
+      "id": "ORD1004",
+      "orderDate": "2025-05-05",
+      "billTo": "Global Markets Ltd.",
+      "status": "submitted",
+      "products": [
+        {
+          "name": "POS Terminal",
+          "quantity": 1,
+          "unitPrice": 600.0,
+          "lineTotal": 600.0
+        }
+      ],
+      "total": 600.0
+    },
+    {
+      "id": "ORD1005",
+      "orderDate": "2025-05-10",
+      "billTo": "MetroMart",
+      "status": "approved",
+      "products": [
+        {
+          "name": "Handheld Barcode Scanner",
+          "quantity": 3,
+          "unitPrice": 80.0,
+          "lineTotal": 240.0
+        },
+        {
+          "name": "Label Printer",
+          "quantity": 1,
+          "unitPrice": 150.0,
+          "lineTotal": 150.0
+        }
+      ],
+      "total": 390.0
+    }
+  ]
+}
