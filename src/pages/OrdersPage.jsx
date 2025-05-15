@@ -1,10 +1,10 @@
 import { useGetOrdersQuery } from "../redux/services/mainApi";
 
-const Orders = () => {
+const OrderPage = () => {
   const { data } = useGetOrdersQuery();
   console.log({ data });
 
-  return <div>Orders</div>;
+  return <div>OrderPage</div>;
 };
 
-export default Orders;
+export default OrderPage;
