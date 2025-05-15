@@ -1,4 +1,3 @@
-import React from "react";
 import { useGetOrdersQuery } from "../redux/services/mainApi";
 
 const Orders = () => {
