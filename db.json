@@ -61,7 +61,7 @@
       "id": "ORD1004",
       "orderDate": "2025-05-05",
       "billTo": "Global Markets Ltd.",
-      "status": "submitted",
+      "status": "approved",
       "products": [
         {
           "name": "POS Terminal",
