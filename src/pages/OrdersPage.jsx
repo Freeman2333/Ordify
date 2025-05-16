@@ -1,12 +1,18 @@
+import { useSearchParams } from "react-router";
+
 import OrderCard from "../components/OrderCard";
+import OrderStatusSelect from "../components/OrderStatusSelect";
 import { useGetOrdersQuery } from "../redux/services/mainApi";
 
 const OrdersPage = () => {
-  const { data: orders, isLoading, isError } = useGetOrdersQuery();
+  const [searchParams] = useSearchParams();
+  const status = searchParams.get("status");
+
+  const { data: orders, isLoading, isError } = useGetOrdersQuery({ status });
 
   if (isLoading || !orders) {
     return (
-      <div className="bg-[#f8f8fb] min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         Loading...
       </div>
     );
@@ -14,14 +20,14 @@ const OrdersPage = () => {
 
   if (isError) {
     return (
-      <div className="bg-[#f8f8fb] min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         Error occured
       </div>
     );
   }
 
   return (
-    <div className="bg-[#f8f8fb] min-h-screen p-10">
+    <div className="min-h-screen p-10">
       <div className="max-w-3xl flex flex-col mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -33,6 +39,7 @@ const OrdersPage = () => {
               There are {orders.length} orders.
             </p>
           </div>
+          <OrderStatusSelect />
         </div>
 
         {/* Orders Cards */}

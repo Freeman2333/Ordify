@@ -5,9 +5,17 @@ export const mainApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   endpoints: (builder) => ({
     getOrders: builder.query({
-      query: () => ({ url: `/orders` }),
+      query: ({ status }) => ({
+        url: `/orders`,
+        params: {
+          status,
+        },
+      }),
+    }),
+    getOrder: builder.query({
+      query: (id) => ({ url: `/orders/${id}` }),
     }),
   }),
 });
 
-export const { useGetOrdersQuery } = mainApi;
+export const { useGetOrdersQuery, useGetOrderQuery } = mainApi;
