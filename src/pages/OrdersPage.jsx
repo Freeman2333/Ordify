@@ -6,7 +6,7 @@ import { useGetOrdersQuery } from "../redux/services/mainApi";
 
 const OrdersPage = () => {
   const [searchParams] = useSearchParams();
-  const status = searchParams.get("status");
+  const status = searchParams.get("status") || "";
 
   const { data: orders, isLoading, isError } = useGetOrdersQuery({ status });
 
