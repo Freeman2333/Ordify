@@ -37,7 +37,7 @@ const Dropdown = ({
           className={`ml-3 transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
           }`}
-          alt=""
+          alt="arrow down"
           aria-hidden="true"
         />
       </button>
