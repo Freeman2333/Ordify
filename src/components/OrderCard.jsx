@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 import Badge from "./ui/Badge";
 
-const OrderCard = ({ id, orderDate, billTo, status, total }) => {
+const OrderCard = ({ id, orderDate, status, clientName, total }) => {
   return (
     <Link to={`/orders/${id}`}>
       {/* Big Screen  */}
@@ -13,7 +13,9 @@ const OrderCard = ({ id, orderDate, billTo, status, total }) => {
             {id}
           </h2>
           <h2 className="text-sm text-gray-400 font-light ml-6">{orderDate}</h2>
-          <h2 className="text-sm text-gray-400 font-light ml-10">{billTo}</h2>
+          <h2 className="text-sm text-gray-400 font-light ml-10">
+            {clientName}
+          </h2>
         </div>
         <div className="flex items-center ">
           <h1 className=" text-xl mr-8 dark:text-white">${total}</h1>
@@ -37,7 +39,7 @@ const OrderCard = ({ id, orderDate, billTo, status, total }) => {
 
         <div className="flex flex-col">
           <h2 className=" text-sm mb-4 text-gray-400 font-light text-right">
-            {billTo}
+            {clientName}
           </h2>
           <Badge type={status} />
         </div>

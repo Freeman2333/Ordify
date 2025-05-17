@@ -49,9 +49,9 @@ const OrdersPage = () => {
               key={order.id}
               id={order.id}
               orderDate={order.orderDate}
-              billTo={order.billTo}
               status={order.status}
               total={order.total}
+              clientName={order.clientName}
             />
           ))}
         </div>

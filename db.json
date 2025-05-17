@@ -3,6 +3,14 @@
     {
       "id": "ORD1001",
       "orderDate": "2025-04-25",
+      "clientName": "Serhii Gonta",
+      "clientEmail": "gonta@gmail.com",
+      "clientAddress": {
+        "street": "2/58  Pivnichna",
+        "city": "Gotham",
+        "postCode": "04214",
+        "country": "Ukraine"
+      },
       "billTo": "Acme Supplies Ltd.",
       "status": "approved",
       "products": [
@@ -24,6 +32,14 @@
     {
       "id": "ORD1002",
       "orderDate": "2025-04-28",
+      "clientName": "John Doe",
+      "clientEmail": "john.doe@example.com",
+      "clientAddress": {
+        "street": "101 Main St",
+        "city": "Metropolis",
+        "postCode": "12345",
+        "country": "USA"
+      },
       "billTo": "BrightTech Co.",
       "status": "pending",
       "products": [
@@ -39,6 +55,14 @@
     {
       "id": "ORD1003",
       "orderDate": "2025-05-01",
+      "clientName": "Jane Smith",
+      "clientEmail": "jane.smith@example.com",
+      "clientAddress": {
+        "street": "202 Elm St",
+        "city": "Smallville",
+        "postCode": "67890",
+        "country": "USA"
+      },
       "billTo": "Nova Retailers",
       "status": "draft",
       "products": [
@@ -60,6 +84,14 @@
     {
       "id": "ORD1004",
       "orderDate": "2025-05-05",
+      "clientName": "Alice Johnson",
+      "clientEmail": "alice.johnson@example.com",
+      "clientAddress": {
+        "street": "303 Oak St",
+        "city": "Central City",
+        "postCode": "54321",
+        "country": "USA"
+      },
       "billTo": "Global Markets Ltd.",
       "status": "approved",
       "products": [
@@ -75,6 +107,14 @@
     {
       "id": "ORD1005",
       "orderDate": "2025-05-10",
+      "clientName": "Bob Brown",
+      "clientEmail": "bob.brown@example.com",
+      "clientAddress": {
+        "street": "404 Pine St",
+        "city": "Star City",
+        "postCode": "98765",
+        "country": "USA"
+      },
       "billTo": "MetroMart",
       "status": "approved",
       "products": [
