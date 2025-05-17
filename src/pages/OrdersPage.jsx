@@ -32,7 +32,7 @@ const OrdersPage = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="lg:text-4xl md:text-2xl  text-xl  dark:text-white tracking-wide font-semibold">
+            <h1 className="lg:text-4xl md:text-2xl  text-xl  tracking-wide font-semibold">
               Orders
             </h1>
             <p className="text-gray-500 font-light">
