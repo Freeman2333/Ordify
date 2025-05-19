@@ -1,14 +1,20 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router";
 
 import OrderCard from "../components/OrderCard";
 import OrderStatusSelect from "../components/OrderStatusSelect";
 import { useGetOrdersQuery } from "../redux/services/mainApi";
+import Button from "../components/ui/Button";
+import plusIcon from "../assets/plus.png";
+import OrderModal from "../components/OrderModal";
 
 const OrdersPage = () => {
   const [searchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
 
   const { data: orders, isLoading, isError } = useGetOrdersQuery({ status });
+
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
 
   if (isLoading || !orders) {
     return (
@@ -39,7 +45,17 @@ const OrdersPage = () => {
               There are {orders.length} orders.
             </p>
           </div>
-          <OrderStatusSelect />
+          <div className="ml-auto mx-4">
+            <OrderStatusSelect />
+          </div>
+          <Button
+            icon={plusIcon}
+            variant="primary"
+            className="px-2"
+            onClick={() => setIsOrderModalOpen(true)}
+          >
+            New Order
+          </Button>
         </div>
 
         {/* Orders Cards */}
@@ -55,6 +71,13 @@ const OrdersPage = () => {
             />
           ))}
         </div>
+
+        {/* Order Popup */}
+        <OrderModal
+          isOpen={isOrderModalOpen}
+          onClose={() => setIsOrderModalOpen(false)}
+          type="create"
+        />
       </div>
     </div>
   );

@@ -10,10 +10,12 @@ import Badge from "../components/ui/Badge";
 import Button from "../components/ui/Button";
 import { formatDate } from "../utils/formatDate";
 import DeleteModal from "../components/DeleteModal";
+import OrderModal from "../components/OrderModal";
 
 const OrderPage = () => {
   const params = useParams();
 
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { orderId } = params;
@@ -61,7 +63,7 @@ const OrderPage = () => {
           <Badge type={order.status} />
         </div>
         <div className=" md:block hidden">
-          <Button>Edit</Button>
+          <Button onClick={() => setIsOrderModalOpen(true)}>Edit</Button>
           <Button
             variant="danger"
             className="ml-3"
@@ -154,6 +156,21 @@ const OrderPage = () => {
           <h1 className=" text-3xl">${order.total}</h1>
         </div>
       </div>
+      <OrderModal
+        initialValues={{
+          clientName: order?.clientName,
+          clientEmail: order?.clientEmail,
+          streetAddress: order?.clientAddress?.street,
+          city: order?.clientAddress?.city,
+          postCode: order?.clientAddress?.postCode,
+          country: order?.clientAddress?.country,
+          products: order?.products,
+          orderDate: order?.orderDate,
+        }}
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+        type="edit"
+      />
       <DeleteModal
         orderId={order.id}
         isDeleteModalOpen={isDeleteModalOpen}

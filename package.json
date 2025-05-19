@@ -12,14 +12,17 @@
     "start-app": "concurrently \"npm run dev\" \"npm run serve-json\""
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@reduxjs/toolkit": "^2.8.1",
     "@tailwindcss/vite": "^4.1.6",
     "json-server": "^1.0.0-beta.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.4",
     "react-redux": "^9.2.0",
     "react-router": "^7.6.0",
-    "tailwindcss": "^4.1.6"
+    "tailwindcss": "^4.1.6",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
