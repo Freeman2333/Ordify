@@ -5,6 +5,7 @@ import leftArrow from "../assets/icon-arrow-left.svg";
 import {
   useDeleteOrderMutation,
   useGetOrderQuery,
+  useUpdateOrderStatusMutation,
 } from "../redux/services/mainApi";
 import Badge from "../components/ui/Badge";
 import Button from "../components/ui/Button";
@@ -23,6 +24,15 @@ const OrderPage = () => {
 
   const { data: order, isLoading, isError } = useGetOrderQuery(orderId);
   const [triggerDeleteOrder] = useDeleteOrderMutation();
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
+
+  const handleStatusUpdate = async (newStatus) => {
+    try {
+      await updateOrderStatus({ id: orderId, status: newStatus }).unwrap();
+    } catch (error) {
+      console.error("Failed to update order status:", error);
+    }
+  };
 
   const handleDeleteOrder = async () => {
     try {
@@ -72,8 +82,21 @@ const OrderPage = () => {
             Delete
           </Button>
           {order.status === "pending" && (
-            <Button variant="primary" className="ml-3">
-              Aprove
+            <Button
+              variant="primary"
+              className="ml-3"
+              onClick={() => handleStatusUpdate("approved")}
+            >
+              Approve
+            </Button>
+          )}
+          {order.status === "draft" && (
+            <Button
+              variant="primary"
+              className="ml-3"
+              onClick={() => handleStatusUpdate("pending")}
+            >
+              Suspend
             </Button>
           )}
         </div>
@@ -120,8 +143,8 @@ const OrderPage = () => {
         {/* Footer Section */}
 
         <div className=" sm:hidden mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4  p-10">
-          {order.products.map((item) => (
-            <div className=" justify-between text-lg flex">
+          {order.products.map((item, index) => (
+            <div key={index} className=" justify-between text-lg flex">
               <h1>{item.name}</h1>
               <h1>${item.total}</h1>
             </div>
@@ -129,8 +152,8 @@ const OrderPage = () => {
         </div>
 
         <div className=" hidden sm:block mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4  p-10">
-          {order.products.map((item) => (
-            <div key={item.name} className="flex justify-between">
+          {order.products.map((item, index) => (
+            <div key={index} className="flex justify-between">
               <div className="space-y-4 basis-[60%]">
                 <p className="text-gray-400 font-thin">Product name</p>
                 <h1 className="text-base font-semibold">{item.name}</h1>

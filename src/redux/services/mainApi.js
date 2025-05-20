@@ -50,6 +50,27 @@ export const mainApi = createApi({
       invalidatesTags: ["Orders"],
     }),
 
+    updateOrderStatus: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/orders/${id}`,
+        method: "PATCH",
+        body: { status },
+      }),
+      async onQueryStarted({ id, status }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          mainApi.util.updateQueryData("getOrder", id, (draft) => {
+            draft.status = status;
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: ["Orders"],
+    }),
     deleteOrder: builder.mutation({
       query: (id) => ({
         url: `/orders/${id}`,
@@ -65,5 +86,6 @@ export const {
   useGetOrderQuery,
   useCreateOrderMutation,
   useUpdateOrderMutation,
+  useUpdateOrderStatusMutation,
   useDeleteOrderMutation,
 } = mainApi;
