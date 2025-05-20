@@ -16,6 +16,40 @@ export const mainApi = createApi({
       query: (id) => ({ url: `/orders/${id}` }),
       providesTags: (_result, _error, id) => [{ type: "Orders", id }],
     }),
+    createOrder: builder.mutation({
+      query: (order) => ({
+        url: `/orders`,
+        method: "POST",
+        body: order,
+      }),
+      invalidatesTags: ["Orders"],
+    }),
+
+    updateOrder: builder.mutation({
+      query: ({ id, ...updatedOrder }) => ({
+        url: `/orders/${id}`,
+        method: "PUT",
+        body: updatedOrder,
+      }),
+      async onQueryStarted(
+        { id, ...updatedOrder },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          mainApi.util.updateQueryData("getOrder", id, (draft) => {
+            Object.assign(draft, updatedOrder);
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: ["Orders"],
+    }),
+
     deleteOrder: builder.mutation({
       query: (id) => ({
         url: `/orders/${id}`,
@@ -26,5 +60,10 @@ export const mainApi = createApi({
   }),
 });
 
-export const { useGetOrdersQuery, useGetOrderQuery, useDeleteOrderMutation } =
-  mainApi;
+export const {
+  useGetOrdersQuery,
+  useGetOrderQuery,
+  useCreateOrderMutation,
+  useUpdateOrderMutation,
+  useDeleteOrderMutation,
+} = mainApi;

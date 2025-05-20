@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -6,6 +7,10 @@ import Popup from "./ui/Popup";
 import TextInput from "./ui/TextInput";
 import { orderSchema } from "../validation/orderSchema";
 import ProductFormItem from "./ProductFormItem";
+import {
+  useCreateOrderMutation,
+  useUpdateOrderMutation,
+} from "../redux/services/mainApi";
 
 const defaultEmptyValues = {
   clientName: "",
@@ -14,11 +19,11 @@ const defaultEmptyValues = {
   city: "",
   postCode: "",
   country: "",
-  orderDate: new Date(),
+  orderDate: new Date().toISOString().slice(0, 10),
   products: [],
 };
 
-const OrderModal = ({ isOpen, onClose, type, initialValues = {} }) => {
+const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
   const {
     register,
     control,
@@ -31,16 +36,40 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {} }) => {
     defaultValues: initialValues || defaultEmptyValues,
   });
 
+  const navigate = useNavigate();
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "products",
   });
 
+  const [triggerCreateOrder] = useCreateOrderMutation();
+  const [triggerUpdateOrder] = useUpdateOrderMutation();
+
   const onSubmit = async (data) => {
     try {
-      console.log("Submitting data:", data);
-      // reset();
-      // onClose();
+      const { streetAddress, city, postCode, country, orderDate, ...mainData } =
+        data;
+      const submitedData = {
+        ...mainData,
+        id: orderId,
+        orderDate: new Date(orderDate).toISOString().slice(0, 10),
+        clientAddress: { street: streetAddress, city, postCode, country },
+        status: "draft",
+        total: data.products.reduce(
+          (total, product) => total + product.lineTotal,
+          0
+        ),
+      };
+
+      if (type === "create") {
+        const data = await triggerCreateOrder(submitedData).unwrap();
+        navigate(`/orders/${data.id}`);
+      } else {
+        await triggerUpdateOrder(submitedData).unwrap();
+
+        onClose();
+      }
     } catch (error) {
       console.error("Submission error:", error);
     }

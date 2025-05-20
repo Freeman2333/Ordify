@@ -73,11 +73,13 @@ const OrdersPage = () => {
         </div>
 
         {/* Order Popup */}
-        <OrderModal
-          isOpen={isOrderModalOpen}
-          onClose={() => setIsOrderModalOpen(false)}
-          type="create"
-        />
+        {isOrderModalOpen && (
+          <OrderModal
+            isOpen={isOrderModalOpen}
+            onClose={() => setIsOrderModalOpen(false)}
+            type="create"
+          />
+        )}
       </div>
     </div>
   );

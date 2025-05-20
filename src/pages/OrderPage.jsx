@@ -156,21 +156,24 @@ const OrderPage = () => {
           <h1 className=" text-3xl">${order.total}</h1>
         </div>
       </div>
-      <OrderModal
-        initialValues={{
-          clientName: order?.clientName,
-          clientEmail: order?.clientEmail,
-          streetAddress: order?.clientAddress?.street,
-          city: order?.clientAddress?.city,
-          postCode: order?.clientAddress?.postCode,
-          country: order?.clientAddress?.country,
-          products: order?.products,
-          orderDate: order?.orderDate,
-        }}
-        isOpen={isOrderModalOpen}
-        onClose={() => setIsOrderModalOpen(false)}
-        type="edit"
-      />
+      {isOrderModalOpen && (
+        <OrderModal
+          initialValues={{
+            clientName: order?.clientName,
+            clientEmail: order?.clientEmail,
+            streetAddress: order?.clientAddress?.street,
+            city: order?.clientAddress?.city,
+            postCode: order?.clientAddress?.postCode,
+            country: order?.clientAddress?.country,
+            products: order?.products,
+            orderDate: order?.orderDate,
+          }}
+          orderId={order.id}
+          isOpen={isOrderModalOpen}
+          onClose={() => setIsOrderModalOpen(false)}
+          type="edit"
+        />
+      )}
       <DeleteModal
         orderId={order.id}
         isDeleteModalOpen={isDeleteModalOpen}

@@ -13,11 +13,11 @@ const ProductFormItem = ({
   setValue,
 }) => {
   const quantity = useWatch({ control, name: `products.${index}.quantity` });
-  const price = useWatch({ control, name: `products.${index}.price` });
+  const price = useWatch({ control, name: `products.${index}.unitPrice` });
 
   useEffect(() => {
     const total = (Number(quantity) || 0) * (Number(price) || 0);
-    setValue(`products.${index}.total`, total);
+    setValue(`products.${index}.lineTotal`, total);
   }, [price, quantity, index, setValue]);
 
   return (
@@ -41,8 +41,6 @@ const ProductFormItem = ({
               name={`products.${index}.quantity`}
               label="Qty."
               error={errors?.products?.[index]?.quantity?.message}
-              type="number"
-              min={0}
             />
           </div>
           <div className="col-span-1">
@@ -50,11 +48,9 @@ const ProductFormItem = ({
               {...register(`products.${index}.unitPrice`, {
                 valueAsNumber: true,
               })}
-              name={`products.${index}.price`}
+              name={`products.${index}.unitPrice`}
               label="Price"
               error={errors?.products?.[index]?.unitPrice?.message}
-              type="number"
-              min={0}
             />
           </div>
           <div className="col-span-1 flex flex-col">
@@ -63,7 +59,7 @@ const ProductFormItem = ({
               disabled
               name={`products.${index}.lineTotal`}
               label="Total"
-              error={errors?.products?.[index]?.total?.message}
+              error={errors?.products?.[index]?.lineTotal?.message}
               type="number"
               min={0}
             />
