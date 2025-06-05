@@ -1,9 +1,7 @@
 import { useParams } from "react-router";
 
 const OrderPage = () => {
-  const params = useParams();
-
-  const { orderId } = params;
+  const { orderId } = useParams();
 
   return <div>OrderPage {orderId}</div>;
 };
