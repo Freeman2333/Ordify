@@ -9,3 +9,14 @@ body,
 body {
   background-color: #f8f8fb;
 }
+
+@theme {
+  --color-approved-500: #33d69f;
+  --color-approved-100: #33d69f0f;
+
+  --color-pending-500: #ff8f00;
+  --color-pending-100: #ff8f000f;
+
+  --color-draft-500: #dfe3fa;
+  --color-draft-100: #dfe3fa0f;
+}
