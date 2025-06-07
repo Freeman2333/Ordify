@@ -20,6 +20,7 @@ const OrderPage = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { orderId } = params;
+
   const navigate = useNavigate();
 
   const { data: order, isLoading, isError } = useGetOrderQuery(orderId);
@@ -39,7 +40,7 @@ const OrderPage = () => {
       await triggerDeleteOrder(orderId).unwrap();
       navigate("/");
     } catch (_) {
-      console.error("Something wen't wrong. Please, try again later");
+      console.error("Something went wrong. Please, try again later");
     } finally {
       setIsDeleteModalOpen(false);
     }
@@ -56,23 +57,25 @@ const OrderPage = () => {
   if (isError) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        Error occured
+        Error occurred
       </div>
     );
   }
 
   return (
     <div className="mx-auto duration-300 min-h-screen bg-[#f8f8fb] py-[34px] px-2 md:px-8 lg:px-12 max-w-3xl lg:py-[72px]">
-      <Link to={`/`} className="flex items-center space-x-4  group  font-thin">
-        <img className="" src={leftArrow} />
-        <p className=" group-hover:opacity-80">Go back</p>
+      <Link to={`/`} className="flex items-center space-x-4 group font-thin">
+        <img src={leftArrow} alt="Go back" />
+        <p className="group-hover:opacity-80">Go back</p>
       </Link>
-      <div className=" mt-8 rounded-lg w-full flex items-center justify-between px-6 py-6 bg-white">
-        <div className=" flex space-x-2 justify-between md:justify-start md:w-auto w-full items-center">
-          <h1 className=" text-gray-600 ">Status</h1>
+
+      {/* Status Section */}
+      <div className="mt-8 rounded-lg w-full flex items-center justify-between px-6 py-6 bg-white">
+        <div className="flex space-x-2 justify-between md:justify-start md:w-auto w-full items-center">
+          <p className="text-gray-600">Status</p>
           <Badge type={order.status} />
         </div>
-        <div className=" md:block hidden">
+        <div className="md:block hidden">
           <Button onClick={() => setIsOrderModalOpen(true)}>Edit</Button>
           <Button
             variant="danger"
@@ -103,80 +106,82 @@ const OrderPage = () => {
       </div>
 
       {/* Body */}
-
-      <div className=" mt-4 rounded-lg w-full  px-6 py-6 bg-white">
+      <div className="mt-4 rounded-lg w-full px-6 py-6 bg-white">
+        {/* Order Info */}
         <div>
-          <h1 className=" font-semibold text-xl">
+          <p className="font-semibold text-xl">
             <span className="text-[#7e88c3]">#</span>
             {order.id}
-          </h1>
-          <p className=" text-sm text-gray-500">{order.clientName}</p>
+          </p>
+          <p className="text-sm text-gray-500">{order.clientName}</p>
         </div>
 
-        <div className="mt-10 grid grid-cols-2 w-full  md:grid-cols-3">
-          <div className=" flex flex-col justify-between">
+        {/* Order Meta */}
+        <div className="mt-10 grid grid-cols-2 w-full md:grid-cols-3">
+          <div className="flex flex-col justify-between">
             <div>
-              <h3 className=" text-gray-400 font-thin ">Order Date</h3>
-              <h1 className=" text-lg font-semibold">
+              <p className="text-gray-400 font-thin">Order Date</p>
+              <p className="text-lg font-semibold">
                 {formatDate(order.orderDate)}
-              </h1>
+              </p>
             </div>
           </div>
 
-          <div className="">
-            <p className=" text-gray-400 font-thin">Bill to</p>
-            <h1 className="text-lg font-semibold">{order.clientName}</h1>
-            <p className=" text-gray-400 font-thin">
+          <div>
+            <p className="text-gray-400 font-thin">Bill to</p>
+            <p className="text-lg font-semibold">{order.clientName}</p>
+            <p className="text-gray-400 font-thin">
               {order.clientAddress.street}, {order.clientAddress.postCode}
             </p>
-            <p className=" text-gray-400 font-thin">
+            <p className="text-gray-400 font-thin">
               {order.clientAddress.city}, {order.clientAddress.country}
             </p>
           </div>
 
-          <div className=" mt-8 md:mt-0">
-            <p className=" text-gray-400 font-thin">Sent to</p>
-            <h1 className="text-lg font-semibold">{order.clientEmail}</h1>
+          <div className="mt-8 md:mt-0">
+            <p className="text-gray-400 font-thin">Sent to</p>
+            <p className="text-lg font-semibold">{order.clientEmail}</p>
           </div>
         </div>
 
-        {/* Footer Section */}
-
-        <div className=" sm:hidden mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4  p-10">
+        {/* Mobile Product List */}
+        <div className="sm:hidden mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4 p-10">
           {order.products.map((item, index) => (
-            <div key={index} className=" justify-between text-lg flex">
-              <h1>{item.name}</h1>
-              <h1>${item.total}</h1>
+            <div key={index} className="flex justify-between text-lg">
+              <p>{item.name}</p>
+              <p>${item.total}</p>
             </div>
           ))}
         </div>
 
-        <div className=" hidden sm:block mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4  p-10">
+        {/* Desktop Product Table */}
+        <div className="hidden sm:block mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4 p-10">
           {order.products.map((item, index) => (
             <div key={index} className="flex justify-between">
               <div className="space-y-4 basis-[60%]">
                 <p className="text-gray-400 font-thin">Product name</p>
-                <h1 className="text-base font-semibold">{item.name}</h1>
+                <p className="text-base font-semibold">{item.name}</p>
               </div>
               <div className="space-y-4 basis-[10%]">
                 <p className="text-gray-400 font-thin">Qty.</p>
-                <h1 className="text-base font-semibold">{item.quantity}</h1>
+                <p className="text-base font-semibold">{item.quantity}</p>
               </div>
               <div className="space-y-4 basis-[15%]">
                 <p className="text-gray-400 font-thin">Item price</p>
-                <h1 className="text-base font-semibold">${item.unitPrice}</h1>
+                <p className="text-base font-semibold">${item.unitPrice}</p>
               </div>
               <div className="space-y-4 basis-[15%]">
                 <p className="text-gray-400 font-thin">Total</p>
-                <h1 className="text-base font-semibold">${item.lineTotal}</h1>
+                <p className="text-base font-semibold">${item.lineTotal}</p>
               </div>
             </div>
           ))}
         </div>
-        <div className=" p-10 font-semibold text-white rounded-lg rounded-t-none justify-between flex bg-gray-700 ">
-          <h3 className=" text-xl ">Total Amount</h3>
 
-          <h1 className=" text-3xl">${order.total}</h1>
+        {/* Total Amount */}
+        <div className="p-10 font-semibold text-white rounded-lg rounded-t-none flex justify-between bg-gray-700">
+          <p className="text-xl">Total Amount</p>
+          <p className="text-3xl">${order.total}</p>
         </div>
       </div>
       {isOrderModalOpen && (
@@ -197,6 +202,8 @@ const OrderPage = () => {
           type="edit"
         />
       )}
+
+      {/* Delete Modal */}
       <DeleteModal
         orderId={order.id}
         isDeleteModalOpen={isDeleteModalOpen}
