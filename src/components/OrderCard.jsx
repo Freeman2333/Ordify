@@ -5,42 +5,34 @@ import Badge from "./ui/Badge";
 const OrderCard = ({ id, orderDate, status, clientName, total }) => {
   return (
     <Link to={`/orders/${id}`}>
-      {/* Big Screen  */}
-      <div className="hidden md:flex cursor-pointer duration-100 ease-in-out hover:border border-purple-500 py-4 shadow-sm px-6 dark:bg-[#1E2139] bg-white rounded-lg  items-center justify-between mb-3">
-        <div className=" flex items-center ">
-          <h2 className=" dark:text-white ">
+      {/* Big Screen */}
+      <div className="hidden md:flex cursor-pointer duration-100 ease-in-out hover:border border-purple-500 py-4 shadow-sm px-6 dark:bg-[#1E2139] bg-white rounded-lg items-center justify-between mb-3">
+        <div className="flex items-center">
+          <p className="dark:text-white">
             <span className="text-[#7e88c3]">#</span>
             {id}
-          </h2>
-          <h2 className="text-sm text-gray-400 font-light ml-6">{orderDate}</h2>
-          <h2 className="text-sm text-gray-400 font-light ml-10">
-            {clientName}
-          </h2>
+          </p>
+          <p className="text-sm text-gray-400 font-light ml-6">{orderDate}</p>
+          <p className="text-sm text-gray-400 font-light ml-10">{clientName}</p>
         </div>
-        <div className="flex items-center ">
-          <h1 className=" text-xl mr-8 dark:text-white">${total}</h1>
+        <div className="flex items-center">
+          <span className="text-xl mr-8 dark:text-white">${total}</span>
           <Badge type={status} />
         </div>
       </div>
 
       {/* Phone Screen */}
-      <div className=" md:hidden flex cursor-pointer hover:border border-purple-500 py-4 shadow-sm px-6 dark:bg-[#1E2139] bg-white rounded-lg  items-center justify-between mb-3">
-        <div className=" flex flex-col">
-          <h2 className=" dark:text-white ">
-            <span className=" text-[#7e88c3]">#</span>
-            {id}
-          </h2>
-
-          <h2 className="text-sm text-gray-400 font-light mt-3 ">
-            {orderDate}
-          </h2>
-          <h1 className="text-xl dark:text-white">${total}</h1>
-        </div>
-
+      <div className="md:hidden flex cursor-pointer hover:border border-purple-500 py-4 shadow-sm px-6 dark:bg-[#1E2139] bg-white rounded-lg items-center justify-between mb-3">
         <div className="flex flex-col">
-          <h2 className=" text-sm mb-4 text-gray-400 font-light text-right">
-            {clientName}
-          </h2>
+          <p className="dark:text-white">
+            <span className="text-[#7e88c3]">#</span>
+            {id}
+          </p>
+          <p className="text-sm text-gray-400 font-light mt-3">{orderDate}</p>
+          <span className="text-xl dark:text-white">${total}</span>
+        </div>
+        <div className="flex flex-col text-right">
+          <p className="text-sm mb-4 text-gray-400 font-light">{clientName}</p>
           <Badge type={status} />
         </div>
       </div>
