@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
+import useClickOutside from "../../hooks/useClickOutside";
 import arrowDown from "../../assets/icon-arrow-down.svg";
 
 const Dropdown = ({
@@ -8,18 +9,11 @@ const Dropdown = ({
   selected,
   onChange,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef();
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useClickOutside(dropdownRef, () => setIsOpen(false));
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>

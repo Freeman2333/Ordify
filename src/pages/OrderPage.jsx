@@ -15,13 +15,12 @@ import OrderModal from "../components/OrderModal";
 
 const OrderPage = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { orderId } = params;
-
-  const navigate = useNavigate();
 
   const { data: order, isLoading, isError } = useGetOrderQuery(orderId);
   const [triggerDeleteOrder] = useDeleteOrderMutation();
