@@ -89,7 +89,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
               {type === "edit" ? "Edit" : "Create"} Order
             </h1>
 
-            <h1 className="text-[#7c5dfa] my-4 mt-9 font-medium">Bill To</h1>
+            <h3 className="text-[#7c5dfa] my-4 mt-9 font-medium">Bill To</h3>
 
             <div className="grid grid-cols-3 mx-1 space-y-4">
               <div className="col-span-3">
