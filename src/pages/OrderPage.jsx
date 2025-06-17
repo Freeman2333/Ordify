@@ -1,7 +1,11 @@
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 
 const OrderPage = () => {
   const { orderId } = useParams();
+
+  if (!orderId) {
+    return <Navigate to="/orders" replace />;
+  }
 
   return <h1>OrderPage {orderId}</h1>;
 };
