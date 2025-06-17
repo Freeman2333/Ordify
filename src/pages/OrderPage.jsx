@@ -1,11 +1,13 @@
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 
 const OrderPage = () => {
-  const params = useParams();
+  const { orderId } = useParams();
 
-  const { orderId } = params;
+  if (!orderId) {
+    return <Navigate to="/orders" replace />;
+  }
 
-  return <div>OrderPage {orderId}</div>;
+  return <h1>OrderPage {orderId}</h1>;
 };
 
 export default OrderPage;

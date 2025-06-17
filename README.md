@@ -15,16 +15,16 @@ Ordify is a React-based wholesale orders management system designed to streamlin
 
 ## ⚙️ Tech Stack
 
-| Category          | Tech                                                   |
-| ----------------- | ------------------------------------------------------ |
-| Framework         | [React 19](https://react.dev/)                         |
-| State Management  | [Redux Toolkit 2.8.1](https://redux-toolkit.js.org/)   |
-| Routing           | [React Router v7](https://reactrouter.com/en/main)     |
-| Styling           | [Tailwind CSS](https://tailwindcss.com/)               |
-| Forms             | [React Hook Form](https://react-hook-form.com/)        |
-| Validation        | [Zod](https://zod.dev/)                                |
-| API Communication | [RTK Query] (https://redux-toolkit.js.org/rtk-query/)  |
-| Mock API          | [JSON Server](https://github.com/typicode/json-server) |
+| Category          | Tech                                                          |
+| ----------------- | ------------------------------------------------------------- |
+| Framework         | [React 19](https://react.dev/)                                |
+| State Management  | [Redux Toolkit 2.8.1](https://redux-toolkit.js.org/)          |
+| Routing           | [React Router v7](https://reactrouter.com/en/main)            |
+| Styling           | [Tailwind CSS](https://tailwindcss.com/)                      |
+| Forms             | [React Hook Form](https://react-hook-form.com/)               |
+| Validation        | [Yup](https://github.com/jquense/yup)                         |
+| API Communication | [RTK Query] (https://redux-toolkit.js.org/rtk-query/overview) |
+| Mock API          | [JSON Server](https://github.com/typicode/json-server)        |
 
 ---
 

@@ -8,12 +8,28 @@ const OrdersPage = () => {
   const [searchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
 
-  const { data: orders, isLoading } = useGetOrdersQuery({ status });
+  const { data: orders, isLoading, error } = useGetOrdersQuery({ status });
 
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         Loading...
+      </div>
+    );
+  }
+
+  if (!orders?.length) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        No orders found
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-500">
+        {error.message}
       </div>
     );
   }
