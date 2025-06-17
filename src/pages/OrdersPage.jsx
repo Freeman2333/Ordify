@@ -28,7 +28,7 @@ const OrdersPage = () => {
   }
 
   return (
-    <div className="text-3xl text-amber-300 font-bold underline">OrderPage</div>
+    <h1 className="text-3xl text-amber-300 font-bold underline">Orders Page</h1>
   );
 };
 
