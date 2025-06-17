@@ -2,10 +2,23 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const mainApi = createApi({
   reducerPath: "mainApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3010/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   endpoints: (builder) => ({
     getOrders: builder.query({
       query: () => ({ url: `/orders` }),
+      transformErrorResponse: ({ originalStatus: status }) => {
+        let message = "An error occurred";
+
+        if (status === 400) {
+          message = "Bad Request";
+        } else if (status === 404) {
+          message = "Not Found";
+        } else if (status === 500) {
+          message = "Server Error";
+        }
+
+        return { status, message };
+      },
     }),
   }),
 });
