@@ -8,20 +8,12 @@ const OrdersPage = () => {
   const [searchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
 
-  const { data: orders, isLoading, isError } = useGetOrdersQuery({ status });
+  const { data: orders, isLoading } = useGetOrdersQuery({ status });
 
-  if (isLoading || !orders) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         Loading...
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Error occured
       </div>
     );
   }
