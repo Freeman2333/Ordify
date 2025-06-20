@@ -6,6 +6,7 @@ import Dropdown from "./ui/Dropdown";
 const OrderStatusSelect = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialStatus = searchParams.get("status") || "";
+
   const [filterValue, setFilterValue] = useState(initialStatus);
 
   const options = ["approved", "pending", "draft"];

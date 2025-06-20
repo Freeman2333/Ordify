@@ -15,6 +15,12 @@ const Dropdown = ({
 
   useClickOutside(dropdownRef, () => setIsOpen(false));
 
+  const handleChange = (item) => {
+    const isSelected = selected === item;
+    const newValue = isSelected ? "" : item;
+    onChange?.(newValue);
+  };
+
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
@@ -41,14 +47,14 @@ const Dropdown = ({
           {options.map((item) => (
             <div
               key={item}
-              onClick={() => onChange(selected === item ? "" : item)}
+              onClick={() => handleChange(item)}
               className="flex items-center space-x-2 cursor-pointer"
             >
               <input
                 type="checkbox"
                 checked={selected === item}
                 readOnly
-                className="accent-[#7c5dfa]"
+                className="accent-accent"
               />
               <p>{item}</p>
             </div>

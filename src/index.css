@@ -19,4 +19,8 @@ body {
 
   --color-draft-500: #dfe3fa;
   --color-draft-100: #dfe3fa0f;
+
+  --color-default-text: #7e88c3;
+  --color-accent: #7c5dfa;
+  --color-popup-bg: #14141bbe;
 }

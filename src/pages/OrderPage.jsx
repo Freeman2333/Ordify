@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams, Navigate } from "react-router";
 
 import leftArrow from "../assets/icon-arrow-left.svg";
 import {
@@ -14,15 +14,14 @@ import DeleteModal from "../components/DeleteModal";
 import OrderModal from "../components/OrderModal";
 
 const OrderPage = () => {
-  const params = useParams();
+  const { orderId } = useParams();
+
   const navigate = useNavigate();
 
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const { orderId } = params;
-
-  const { data: order, isLoading, isError } = useGetOrderQuery(orderId);
+  const { data: order, isLoading, error } = useGetOrderQuery(orderId);
   const [triggerDeleteOrder] = useDeleteOrderMutation();
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
 
@@ -45,18 +44,30 @@ const OrderPage = () => {
     }
   };
 
-  if (isLoading || !order) {
+  if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
+      <div className="min-h-screen flex items-center justify-center text-red-500">
+        {error.message}
       </div>
     );
   }
 
-  if (isError) {
+  if (!orderId) {
+    return <Navigate to="/orders" replace />;
+  }
+
+  if (!order) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        Error occurred
+        No order {orderId} found
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
       </div>
     );
   }
@@ -108,10 +119,10 @@ const OrderPage = () => {
       <div className="mt-4 rounded-lg w-full px-6 py-6 bg-white">
         {/* Order Info */}
         <div>
-          <p className="font-semibold text-xl">
-            <span className="text-[#7e88c3]">#</span>
+          <h1 className="font-semibold text-xl">
+            <span className="text-default-text">#</span>
             {order.id}
-          </p>
+          </h1>
           <p className="text-sm text-gray-500">{order.clientName}</p>
         </div>
 
@@ -144,7 +155,7 @@ const OrderPage = () => {
         </div>
 
         {/* Mobile Product List */}
-        <div className="sm:hidden mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4 p-10">
+        <div className="sm:hidden mt-10 bg-slate-50 rounded-lg rounded-b-none space-y-4 p-10">
           {order.products.map((item, index) => (
             <div key={index} className="flex justify-between text-lg">
               <p>{item.name}</p>
@@ -154,7 +165,7 @@ const OrderPage = () => {
         </div>
 
         {/* Desktop Product Table */}
-        <div className="hidden sm:block mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4 p-10">
+        <div className="hidden sm:block mt-10 bg-neutral-50 rounded-lg rounded-b-none space-y-4 p-10">
           {order.products.map((item, index) => (
             <div key={index} className="flex justify-between">
               <div className="space-y-4 basis-[60%]">

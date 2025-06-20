@@ -1,12 +1,12 @@
 {
   "name": "ordify",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "preview": "vite preview",
     "serve-json": "json-server db.json --port 3010",
     "start-app": "concurrently \"npm run dev\" \"npm run serve-json\""

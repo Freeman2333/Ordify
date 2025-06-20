@@ -12,11 +12,11 @@ const OrdersPage = () => {
   const [searchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
 
-  const { data: orders, isLoading, isError } = useGetOrdersQuery({ status });
+  const { data: orders, isLoading, error } = useGetOrdersQuery({ status });
 
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
 
-  if (isLoading || !orders) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         Loading...
@@ -24,10 +24,18 @@ const OrdersPage = () => {
     );
   }
 
-  if (isError) {
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-500">
+        {error.message}
+      </div>
+    );
+  }
+
+  if (!orders?.length) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        Error occured
+        No orders found
       </div>
     );
   }
