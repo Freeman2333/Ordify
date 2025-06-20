@@ -12,13 +12,12 @@ import { formatDate } from "../utils/formatDate";
 import DeleteModal from "../components/DeleteModal";
 
 const OrderPage = () => {
-  const params = useParams();
-  const { orderId } = params;
+  const { orderId } = useParams();
 
   const navigate = useNavigate();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const { data: order, isLoading, isError } = useGetOrderQuery(orderId);
+  const { data: order, isLoading, error } = useGetOrderQuery(orderId);
   const [triggerDeleteOrder] = useDeleteOrderMutation();
 
   const handleDeleteOrder = async () => {
@@ -32,22 +31,30 @@ const OrderPage = () => {
     }
   };
 
-  if (!orderId) {
-    return <Navigate to="/orders" replace />;
-  }
-
-  if (isLoading || !order) {
+  if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
+      <div className="min-h-screen flex items-center justify-center text-red-500">
+        {error.message}
       </div>
     );
   }
 
-  if (isError) {
+  if (!orderId) {
+    return <Navigate to="/orders" replace />;
+  }
+
+  if (!order) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        Error occurred
+        No order {orderId} found
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
       </div>
     );
   }
