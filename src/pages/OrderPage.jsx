@@ -32,6 +32,10 @@ const OrderPage = () => {
     }
   };
 
+  if (!orderId) {
+    return <Navigate to="/orders" replace />;
+  }
+
   if (isLoading || !order) {
     return (
       <div className="min-h-screen flex items-center justify-center">
