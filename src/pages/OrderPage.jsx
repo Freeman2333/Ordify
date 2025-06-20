@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams, Navigate } from "react-router";
 
 import leftArrow from "../assets/icon-arrow-left.svg";
 import {
@@ -86,10 +86,10 @@ const OrderPage = () => {
       <div className="mt-4 rounded-lg w-full px-6 py-6 bg-white">
         {/* Order Info */}
         <div>
-          <p className="font-semibold text-xl">
+          <h1 className="font-semibold text-xl">
             <span className="text-[#7e88c3]">#</span>
             {order.id}
-          </p>
+          </h1>
           <p className="text-sm text-gray-500">{order.clientName}</p>
         </div>
 
