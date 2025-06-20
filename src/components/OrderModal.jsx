@@ -19,7 +19,7 @@ const defaultEmptyValues = {
   city: "",
   postCode: "",
   country: "",
-  orderDate: new Date().toISOString().slice(0, 10),
+  orderDate: new Date(),
   products: [],
 };
 
