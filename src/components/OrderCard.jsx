@@ -9,7 +9,7 @@ const OrderCard = ({ id, orderDate, status, clientName, total }) => {
       <div className="hidden md:flex cursor-pointer duration-100 ease-in-out hover:border border-purple-500 py-4 shadow-sm px-6 bg-white rounded-lg items-center justify-between mb-3">
         <div className="flex items-center">
           <p>
-            <span className="text-[#7e88c3]">#</span>
+            <span className="text-default-text">#</span>
             {id}
           </p>
           <p className="text-sm text-gray-400 font-light ml-6">{orderDate}</p>
@@ -25,7 +25,7 @@ const OrderCard = ({ id, orderDate, status, clientName, total }) => {
       <div className="md:hidden flex cursor-pointer hover:border border-purple-500 py-4 shadow-sm px-6 bg-white rounded-lg items-center justify-between mb-3">
         <div className="flex flex-col">
           <p>
-            <span className="text-[#7e88c3]">#</span>
+            <span className="text-default-text">#</span>
             {id}
           </p>
           <p className="text-sm text-gray-400 font-light mt-3">{orderDate}</p>

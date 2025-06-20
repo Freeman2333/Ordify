@@ -2,7 +2,7 @@ const Button = ({ children, onClick, variant = "default", className = "" }) => {
   const baseClasses =
     "text-center hover:opacity-80 p-3 px-7 rounded-full transition-all cursor-pointer";
   const variants = {
-    default: "text-[#7e88c3] bg-slate-100",
+    default: "text-default-text bg-slate-100",
     danger: "text-white bg-red-500",
   };
 

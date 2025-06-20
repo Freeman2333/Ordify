@@ -87,7 +87,7 @@ const OrderPage = () => {
         {/* Order Info */}
         <div>
           <h1 className="font-semibold text-xl">
-            <span className="text-[#7e88c3]">#</span>
+            <span className="text-default-text">#</span>
             {order.id}
           </h1>
           <p className="text-sm text-gray-500">{order.clientName}</p>
@@ -122,7 +122,7 @@ const OrderPage = () => {
         </div>
 
         {/* Mobile Product List */}
-        <div className="sm:hidden mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4 p-10">
+        <div className="sm:hidden mt-10 bg-slate-50 rounded-lg rounded-b-none space-y-4 p-10">
           {order.products.map((item, index) => (
             <div key={index} className="flex justify-between text-lg">
               <p>{item.name}</p>
@@ -132,7 +132,7 @@ const OrderPage = () => {
         </div>
 
         {/* Desktop Product Table */}
-        <div className="hidden sm:block mt-10 bg-[#f9fafe] rounded-lg rounded-b-none space-y-4 p-10">
+        <div className="hidden sm:block mt-10 bg-neutral-50 rounded-lg rounded-b-none space-y-4 p-10">
           {order.products.map((item, index) => (
             <div key={index} className="flex justify-between">
               <div className="space-y-4 basis-[60%]">
