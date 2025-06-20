@@ -73,7 +73,7 @@ const OrderPage = () => {
   }
 
   return (
-    <div className="mx-auto min-h-screen bg-[#f8f8fb] py-[34px] px-2 md:px-8 lg:px-12 max-w-3xl lg:py-[72px]">
+    <div className="mx-auto min-h-screen  py-[34px] px-2 md:px-8 lg:px-12 max-w-3xl lg:py-[72px]">
       <Link to={`/`} className="flex items-center space-x-4 group font-thin">
         <img src={leftArrow} alt="Go back" />
         <p className="group-hover:opacity-80">Go back</p>

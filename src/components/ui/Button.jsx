@@ -13,7 +13,7 @@ const Button = ({
   const variants = {
     default: "text-default-text bg-slate-100",
     danger: "text-white bg-red-500",
-    primary: "bg-[#7c5dfa] text-white font-semibold",
+    primary: "bg-accent text-white font-semibold",
   };
 
   return (
