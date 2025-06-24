@@ -17,16 +17,19 @@ const transformErrorResponse = ({ originalStatus: status }) => {
 export const mainApi = createApi({
   reducerPath: "mainApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
+  tagTypes: ["Orders"],
   endpoints: (builder) => ({
     getOrders: builder.query({
       query: ({ status }) => ({
         url: `/orders`,
         params: { status },
       }),
+      providesTags: ["Orders"],
       transformErrorResponse,
     }),
     getOrder: builder.query({
       query: (id) => ({ url: `/orders/${id}` }),
+      providesTags: (_result, _error, id) => [{ type: "Orders", id }],
       transformErrorResponse,
     }),
     createOrder: builder.mutation({
@@ -35,6 +38,7 @@ export const mainApi = createApi({
         method: "POST",
         body: order,
       }),
+      invalidatesTags: ["Orders"],
     }),
 
     updateOrder: builder.mutation({
@@ -43,6 +47,23 @@ export const mainApi = createApi({
         method: "PUT",
         body: updatedOrder,
       }),
+      async onQueryStarted(
+        { id, ...updatedOrder },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          mainApi.util.updateQueryData("getOrder", id, (draft) => {
+            Object.assign(draft, updatedOrder);
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: (_, __, { id }) => ["Orders", { type: "Orders", id }],
     }),
 
     updateOrderStatus: builder.mutation({
@@ -51,12 +72,27 @@ export const mainApi = createApi({
         method: "PATCH",
         body: { status },
       }),
+      async onQueryStarted({ id, status }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          mainApi.util.updateQueryData("getOrder", id, (draft) => {
+            draft.status = status;
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: (_, __, { id }) => ["Orders", { type: "Orders", id }],
     }),
     deleteOrder: builder.mutation({
       query: (id) => ({
         url: `/orders/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Orders"],
       transformErrorResponse,
     }),
   }),
