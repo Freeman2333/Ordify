@@ -29,7 +29,6 @@ export const mainApi = createApi({
     }),
     getOrder: builder.query({
       query: (id) => ({ url: `/orders/${id}` }),
-      providesTags: (_result, _error, id) => [{ type: "Orders", id }],
       transformErrorResponse,
     }),
     createOrder: builder.mutation({
@@ -63,7 +62,7 @@ export const mainApi = createApi({
           patchResult.undo();
         }
       },
-      invalidatesTags: (_, __, { id }) => ["Orders", { type: "Orders", id }],
+      invalidatesTags: ["Orders"],
     }),
 
     updateOrderStatus: builder.mutation({
@@ -85,7 +84,7 @@ export const mainApi = createApi({
           patchResult.undo();
         }
       },
-      invalidatesTags: (_, __, { id }) => ["Orders", { type: "Orders", id }],
+      invalidatesTags: ["Orders"],
     }),
     deleteOrder: builder.mutation({
       query: (id) => ({
