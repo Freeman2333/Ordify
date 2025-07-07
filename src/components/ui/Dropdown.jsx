@@ -54,7 +54,7 @@ const Dropdown = ({
                 type="checkbox"
                 checked={selected === item}
                 readOnly
-                className="accent-[#7c5dfa]"
+                className="accent-accent"
               />
               <p>{item}</p>
             </div>
