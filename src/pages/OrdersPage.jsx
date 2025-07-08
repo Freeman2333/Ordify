@@ -17,7 +17,9 @@ const OrdersPage = () => {
 
   if (error) {
     return (
-      <div className={`${centerScreen} text-red-500`}>{error.message}</div>
+      <div className={`${centerScreen} text-red-500`}>
+        {error.data?.message}
+      </div>
     );
   }
 
