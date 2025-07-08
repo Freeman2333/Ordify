@@ -25,6 +25,7 @@ export const mainApi = createApi({
           status,
         },
       }),
+      providesTags: ["Orders"],
       transformErrorResponse,
     }),
     getOrder: builder.query({

@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router";
 import OrderCard from "../components/OrderCard";
 import OrderStatusSelect from "../components/OrderStatusSelect";
 import { useGetOrdersQuery } from "../redux/services/mainApi";
+import { centerScreen } from "../../styles/sharedClasses";
 
 const OrdersPage = () => {
   const [searchParams] = useSearchParams();
@@ -11,27 +12,17 @@ const OrdersPage = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery({ status });
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
+    return <div className={centerScreen}>Loading...</div>;
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
-        {error.message}
-      </div>
+      <div className={`${centerScreen} text-red-500`}>{error.message}</div>
     );
   }
 
   if (!orders?.length) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        No orders found
-      </div>
-    );
+    return <div className={centerScreen}>No orders found</div>;
   }
 
   return (
@@ -40,7 +31,7 @@ const OrdersPage = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="lg:text-4xl md:text-2xl  text-xl  dark:text-white tracking-wide font-semibold">
+            <h1 className="lg:text-4xl md:text-2xl text-xl dark:text-white tracking-wide font-semibold">
               Orders
             </h1>
             <p className="text-gray-500 font-light">

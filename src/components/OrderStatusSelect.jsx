@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import Dropdown from "./ui/Dropdown";
+import { STATUSES } from "../constants";
 
 const OrderStatusSelect = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -9,7 +10,7 @@ const OrderStatusSelect = () => {
 
   const [filterValue, setFilterValue] = useState(initialStatus);
 
-  const options = ["approved", "pending", "draft"];
+  const options = Object.values(STATUSES);
 
   useEffect(() => {
     if (filterValue) {
@@ -18,7 +19,7 @@ const OrderStatusSelect = () => {
       searchParams.delete("status");
     }
     setSearchParams(searchParams);
-  }, [filterValue, searchParams, setSearchParams]);
+  }, [filterValue, setSearchParams]);
 
   return (
     <Dropdown

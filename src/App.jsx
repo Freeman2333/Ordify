@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router";
+import { centerScreen } from "../styles/sharedClasses";
 
 const OrdersPage = lazy(() => import("./pages/OrdersPage"));
 const OrderPage = lazy(() => import("./pages/OrderPage"));
@@ -7,13 +8,7 @@ const MainLayout = lazy(() => import("./layouts/MainLayout"));
 
 function App() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          Loading...
-        </div>
-      }
-    >
+    <Suspense fallback={<div className={centerScreen}>Loading...</div>}>
       <Routes>
         <Route path="/" element={<Navigate to="/orders" replace />} />
         <Route element={<MainLayout />}>
