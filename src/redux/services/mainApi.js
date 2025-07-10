@@ -29,7 +29,6 @@ export const mainApi = createApi({
     }),
     getOrder: builder.query({
       query: (id) => ({ url: `/orders/${id}` }),
-      providesTags: (_result, _error, id) => [{ type: "Orders", id }],
       transformErrorResponse,
     }),
     deleteOrder: builder.mutation({

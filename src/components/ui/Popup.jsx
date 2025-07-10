@@ -7,6 +7,8 @@ const Popup = ({ isOpen, onClose, children }) => {
         if (e.target === e.currentTarget) onClose();
       }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-popup-bg px-2 py-4 overflow-scroll"
+      role="dialog"
+      aria-modal="true"
     >
       <div
         className="bg-white text-black shadow-md 

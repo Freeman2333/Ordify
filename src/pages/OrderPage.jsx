@@ -8,8 +8,9 @@ import {
 } from "../redux/services/mainApi";
 import Badge from "../components/ui/Badge";
 import Button from "../components/ui/Button";
-import { formatDate } from "../utils/formatDate";
 import DeleteModal from "../components/DeleteModal";
+import { centerScreen } from "../../styles/sharedClasses";
+import { formatCurrency, formatDate } from "../utils/utils";
 
 const OrderPage = () => {
   const { orderId } = useParams();
@@ -33,8 +34,8 @@ const OrderPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
-        {error.message}
+      <div className={`${centerScreen} text-red-500`}>
+        {error.data?.message}
       </div>
     );
   }
@@ -44,23 +45,15 @@ const OrderPage = () => {
   }
 
   if (!order) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        No order {orderId} found
-      </div>
-    );
+    return <div className={centerScreen}>No order {orderId} found</div>;
   }
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
+    return <div className={centerScreen}>Loading...</div>;
   }
 
   return (
-    <div className="mx-auto duration-300 min-h-screen bg-[#f8f8fb] py-[34px] px-2 md:px-8 lg:px-12 max-w-3xl lg:py-[72px]">
+    <div className="py-[34px] px-2 md:px-8 lg:px-12 lg:py-[72px]">
       <Link to={`/`} className="flex items-center space-x-4 group font-thin">
         <img src={leftArrow} alt="Go back" />
         <p className="group-hover:opacity-80">Go back</p>
@@ -133,7 +126,7 @@ const OrderPage = () => {
           {order.products.map((item, index) => (
             <div key={index} className="flex justify-between text-lg">
               <p>{item.name}</p>
-              <p>${item.total}</p>
+              <p>{formatCurrency(item.total)}</p>
             </div>
           ))}
         </div>
@@ -152,11 +145,15 @@ const OrderPage = () => {
               </div>
               <div className="space-y-4 basis-[15%]">
                 <p className="text-gray-400 font-thin">Item price</p>
-                <p className="text-base font-semibold">${item.unitPrice}</p>
+                <p className="text-base font-semibold">
+                  {formatCurrency(item.unitPrice)}
+                </p>
               </div>
               <div className="space-y-4 basis-[15%]">
                 <p className="text-gray-400 font-thin">Total</p>
-                <p className="text-base font-semibold">${item.lineTotal}</p>
+                <p className="text-base font-semibold">
+                  {formatCurrency(item.lineTotal)}
+                </p>
               </div>
             </div>
           ))}
@@ -165,7 +162,7 @@ const OrderPage = () => {
         {/* Total Amount */}
         <div className="p-10 font-semibold text-white rounded-lg rounded-t-none flex justify-between bg-gray-700">
           <p className="text-xl">Total Amount</p>
-          <p className="text-3xl">${order.total}</p>
+          <p className="text-3xl">{formatCurrency(order.total)}</p>
         </div>
       </div>
 
