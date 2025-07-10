@@ -7,10 +7,11 @@ const classNames = {
 };
 
 const Badge = ({ type }) => {
-  const [textBgClass, dotBgClass] = classNames[type] || [];
+  const [textBgClass = "", dotBgClass = ""] = classNames[type] || [];
 
   return (
     <div
+      aria-label={type}
       className={`${textBgClass} flex justify-center space-x-2 rounded-lg items-center px-4 py-2`}
     >
       <div className={`h-3 w-3 rounded-full ${dotBgClass}`} />
