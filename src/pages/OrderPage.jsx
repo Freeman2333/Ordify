@@ -78,8 +78,8 @@ const OrderDetails = ({
 const ProductList = ({ products }) => (
   <>
     <div className="sm:hidden mt-10 bg-slate-50 rounded-lg rounded-b-none space-y-4 p-10">
-      {products.map((item, index) => (
-        <div key={index} className="flex justify-between text-lg">
+      {products.map((item) => (
+        <div key={item.id} className="flex justify-between text-lg">
           <p>{item.name}</p>
           <p>{formatCurrency(item.total)}</p>
         </div>
@@ -87,8 +87,8 @@ const ProductList = ({ products }) => (
     </div>
 
     <div className="hidden sm:block mt-10 bg-neutral-50 rounded-lg rounded-b-none space-y-4 p-10">
-      {products.map((item, index) => (
-        <div key={index} className="flex justify-between">
+      {products.map((item) => (
+        <div key={item.id} className="flex justify-between">
           <div className="space-y-4 basis-[60%]">
             <p className="text-gray-400 font-thin">Product name</p>
             <p className="text-base font-semibold">{item.name}</p>
