@@ -15,12 +15,14 @@
       "status": "approved",
       "products": [
         {
+          "id": "1",
           "name": "Blue Widget",
           "quantity": 10,
           "unitPrice": 15.5,
           "lineTotal": 155.0
         },
         {
+          "id": "2",
           "name": "Red Widget",
           "quantity": 5,
           "unitPrice": 22.0,
@@ -44,6 +46,7 @@
       "status": "pending",
       "products": [
         {
+          "id": "1",
           "name": "USB Cables (Pack of 20)",
           "quantity": 3,
           "unitPrice": 50.0,
@@ -67,12 +70,14 @@
       "status": "draft",
       "products": [
         {
+          "id": "1",
           "name": "Thermal Printer",
           "quantity": 2,
           "unitPrice": 120.0,
           "lineTotal": 240.0
         },
         {
+          "id": "2",
           "name": "Printer Paper Rolls (Box of 50)",
           "quantity": 1,
           "unitPrice": 35.0,
@@ -96,6 +101,7 @@
       "status": "approved",
       "products": [
         {
+          "id": "1",
           "name": "POS Terminal",
           "quantity": 1,
           "unitPrice": 600.0,
@@ -119,12 +125,14 @@
       "status": "approved",
       "products": [
         {
+          "id": "1",
           "name": "Handheld Barcode Scanner",
           "quantity": 3,
           "unitPrice": 80.0,
           "lineTotal": 240.0
         },
         {
+          "id": "2",
           "name": "Label Printer",
           "quantity": 1,
           "unitPrice": 150.0,
