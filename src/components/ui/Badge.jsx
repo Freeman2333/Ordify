@@ -3,7 +3,7 @@ import { STATUSES } from "../../constants";
 const classNames = {
   [STATUSES.APPROVED]: ["text-approved-500 bg-approved-100", "bg-approved-500"],
   [STATUSES.PENDING]: ["text-pending-500 bg-pending-100", "bg-pending-500"],
-  [STATUSES.DRAFT]: ["text-draft-500 bg-draft-100", "bg-draft-500"],
+  [STATUSES.DRAFT]: ["text-default-text bg-slate-100", "bg-draft-500"],
 };
 
 const Badge = ({ type }) => {

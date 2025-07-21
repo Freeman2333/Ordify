@@ -13,10 +13,10 @@ const OrderCard = ({ id, orderDate, status, clientName, total }) => {
             <span className="text-default-text">#</span>
             {id}
           </p>
-          <p className="text-sm text-gray-400 font-light ml-6">
+          <p className="text-sm text-gray-600 font-light ml-6">
             {formatDate(orderDate)}
           </p>
-          <p className="text-sm text-gray-400 font-light ml-10">{clientName}</p>
+          <p className="text-sm text-gray-600 font-light ml-10">{clientName}</p>
         </div>
         <div className="flex items-center">
           <span className="text-xl mr-8 text-black">
