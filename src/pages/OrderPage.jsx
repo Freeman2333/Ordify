@@ -1,13 +1,91 @@
-import { Navigate, useParams } from "react-router";
+import { useState } from "react";
+import { Link, useNavigate, useParams, Navigate } from "react-router";
+
+import leftArrow from "../assets/icon-arrow-left.svg";
+import {
+  useDeleteOrderMutation,
+  useGetOrderQuery,
+} from "../redux/services/mainApi";
+import DeleteModal from "../components/DeleteModal";
+import { centerScreen } from "../../styles/sharedClasses";
+import StatusSection from "../components/orderPage/StatusSection";
+import OrderDetails from "../components/orderPage/OrderDetails";
+import ProductList from "../components/orderPage/ProductList";
+import TotalAmount from "../components/orderPage/TotalAmount";
 
 const OrderPage = () => {
   const { orderId } = useParams();
+
+  const navigate = useNavigate();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const { data: order, isLoading, error } = useGetOrderQuery(orderId);
+  const [triggerDeleteOrder] = useDeleteOrderMutation();
+
+  const handleDeleteOrder = async () => {
+    try {
+      await triggerDeleteOrder(orderId).unwrap();
+      navigate("/orders");
+    } catch (err) {
+      alert(err.data?.message);
+    } finally {
+      setIsDeleteModalOpen(false);
+    }
+  };
+
+  if (error) {
+    return (
+      <div className={`${centerScreen} text-red-500`}>
+        {error.data?.message}
+      </div>
+    );
+  }
 
   if (!orderId) {
     return <Navigate to="/orders" replace />;
   }
 
-  return <h1>OrderPage {orderId}</h1>;
+  if (!order) {
+    return <div className={centerScreen}>No order {orderId} found</div>;
+  }
+
+  if (isLoading) {
+    return <div className={centerScreen}>Loading...</div>;
+  }
+
+  return (
+    <div className="py-[34px] px-2 md:px-8 lg:px-12 lg:py-[72px]">
+      <Link to={`/`} className="flex items-center space-x-4 group font-thin">
+        <img src={leftArrow} alt="Go back" />
+        <p className="group-hover:opacity-80">Go back</p>
+      </Link>
+
+      <StatusSection
+        status={order.status}
+        onDeleteClick={() => setIsDeleteModalOpen(true)}
+      />
+
+      <div className="mt-4 rounded-lg w-full px-6 py-6 bg-white">
+        <OrderDetails
+          id={order.id}
+          clientName={order.clientName}
+          orderDate={order.orderDate}
+          clientAddress={order.clientAddress}
+          clientEmail={order.clientEmail}
+        />
+        <ProductList products={order.products} />
+        <TotalAmount total={order.total} />
+      </div>
+
+      <DeleteModal
+        orderId={order.id}
+        isDeleteModalOpen={isDeleteModalOpen}
+        onDeleteButtonClick={handleDeleteOrder}
+        setIsDeleteModalOpen={setIsDeleteModalOpen}
+        isDeleting={isLoading}
+      />
+    </div>
+  );
 };
 
 export default OrderPage;
