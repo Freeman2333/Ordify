@@ -6,10 +6,12 @@ const Button = ({
   icon = null,
   iconAlt = "",
   type,
+  ...rest
 }) => {
   const baseClasses = `text-center hover:opacity-80  ${
     icon ? "flex items-center justify-center p-2" : "px-7 p-3"
   } rounded-full transition-all cursor-pointer`;
+
   const variants = {
     default: "text-default-text bg-slate-100",
     danger: "text-white bg-red-500",
@@ -21,6 +23,7 @@ const Button = ({
       onClick={onClick}
       className={`${baseClasses} ${variants[variant]} ${className}`}
       type={type}
+      {...rest}
     >
       {icon && (
         <span className="mr-2">

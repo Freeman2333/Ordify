@@ -1,4 +1,12 @@
-const Popup = ({ isOpen, onClose, children, size = "md" }) => {
+import { FocusTrap } from "focus-trap-react";
+
+const Popup = ({ isOpen, onClose, children, size = "md", labelledById }) => {
+  if (!isOpen) return null;
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") onClose();
+  };
+
   if (!isOpen) return null;
 
   const sizeClasses = {
@@ -10,20 +18,24 @@ const Popup = ({ isOpen, onClose, children, size = "md" }) => {
   };
 
   return (
-    <div
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-popup-bg px-2 py-4 overflow-scroll"
-    >
+    <FocusTrap>
       <div
-        className={`bg-white text-black rounded-xl w-full p-8 max-h-[95vh] overflow-y-auto scrollbar-hide ${
-          sizeClasses[size] || sizeClasses.md
-        }`}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
+        }}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-popup-bg px-2 py-4 overflow-scroll"
+        role="dialog"
+        aria-modal="true"
+        onKeyDown={handleKeyDown}
+        {...(labelledById ? { "aria-labelledby": labelledById } : {})}
       >
-        {children}
+        <div
+          className={`bg-white text-black shadow-md rounded-xl w-full px-8 max-h-[95vh] overflow-y-auto scrollbar-hide ${sizeClasses[size]}`}
+        >
+          {children}
+        </div>
       </div>
-    </div>
+    </FocusTrap>
   );
 };
 

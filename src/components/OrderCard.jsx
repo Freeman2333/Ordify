@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 
 import Badge from "./ui/Badge";
+import { formatCurrency, formatDate } from "../utils/utils";
 
 const OrderCard = ({ id, orderDate, status, clientName, total }) => {
   return (
@@ -12,11 +13,15 @@ const OrderCard = ({ id, orderDate, status, clientName, total }) => {
             <span className="text-default-text">#</span>
             {id}
           </p>
-          <p className="text-sm text-gray-400 font-light ml-6">{orderDate}</p>
-          <p className="text-sm text-gray-400 font-light ml-10">{clientName}</p>
+          <p className="text-sm text-gray-600 font-light ml-6">
+            {formatDate(orderDate)}
+          </p>
+          <p className="text-sm text-gray-600 font-light ml-10">{clientName}</p>
         </div>
         <div className="flex items-center">
-          <span className="text-xl mr-8 text-black">${total}</span>
+          <span className="text-xl mr-8 text-black">
+            {formatCurrency(total)}
+          </span>
           <Badge type={status} />
         </div>
       </div>
@@ -28,8 +33,10 @@ const OrderCard = ({ id, orderDate, status, clientName, total }) => {
             <span className="text-default-text">#</span>
             {id}
           </p>
-          <p className="text-sm text-gray-400 font-light mt-3">{orderDate}</p>
-          <span className="text-xl text-black">${total}</span>
+          <p className="text-sm text-gray-400 font-light mt-3">
+            {formatDate(orderDate)}
+          </p>
+          <span className="text-xl text-black">{formatCurrency(total)}</span>
         </div>
         <div className="flex flex-col text-right">
           <p className="text-sm mb-4 text-gray-400 font-light">{clientName}</p>

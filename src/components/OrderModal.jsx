@@ -84,7 +84,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
     <Popup isOpen={isOpen} onClose={onPopupClose} size="2xl">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="scrollbar-hide flex flex-col bg-white h-screen md:rounded-r-3xl">
-          <div className="flex-1 overflow-y-auto py-5 px-6">
+          <div className="py-5 px-6">
             <h1 className="font-semibold text-3xl text-center">
               {type === "edit" ? "Edit" : "Create"} Order
             </h1>
@@ -156,7 +156,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
 
           <h2 className="text-2xl text-gray-500 mt-10 ">Item List</h2>
 
-          <div className="space-y-4">
+          <div className="space-y-4 pb-10">
             {fields.map((field, index) => (
               <ProductFormItem
                 key={field.id}
@@ -180,7 +180,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
             </Button>
           </div>
 
-          <div className="sticky bottom-0 bg-white px-6 py-4 left-0 right-0">
+          <div className="sticky bottom-0 bg-white px-6 py-8 left-0 right-0">
             <div className="flex justify-end gap-4">
               <Button type="submit" disabled={isSubmitting} variant="primary">
                 {isSubmitting ? "Saving..." : "Save"}

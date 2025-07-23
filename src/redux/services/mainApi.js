@@ -17,27 +17,36 @@ const transformErrorResponse = ({ originalStatus: status }) => {
 export const mainApi = createApi({
   reducerPath: "mainApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
-  tagTypes: ["Orders"],
+  tagTypes: ["Orders", "Order"],
   endpoints: (builder) => ({
     getOrders: builder.query({
       query: ({ status }) => ({
         url: `/orders`,
         params: { status },
       }),
-      providesTags: ["Orders"],
+      providesTags: (result) => {
+        if (!result) return [{ type: "Orders", id: "LIST" }];
+        return [
+          { type: "Orders", id: "LIST" },
+          ...result.map((order) => ({ type: "Order", id: order.id })),
+        ];
+      },
       transformErrorResponse,
     }),
+
     getOrder: builder.query({
       query: (id) => ({ url: `/orders/${id}` }),
+      providesTags: (result, error, id) => [{ type: "Order", id }],
       transformErrorResponse,
     }),
+
     createOrder: builder.mutation({
       query: (order) => ({
         url: `/orders`,
         method: "POST",
         body: order,
       }),
-      invalidatesTags: ["Orders"],
+      invalidatesTags: [{ type: "Orders", id: "LIST" }],
     }),
 
     updateOrder: builder.mutation({
@@ -62,7 +71,7 @@ export const mainApi = createApi({
           patchResult.undo();
         }
       },
-      invalidatesTags: ["Orders"],
+      invalidatesTags: (result, error, { id }) => [{ type: "Order", id }],
     }),
 
     updateOrderStatus: builder.mutation({
@@ -84,14 +93,15 @@ export const mainApi = createApi({
           patchResult.undo();
         }
       },
-      invalidatesTags: ["Orders"],
+      invalidatesTags: (result, error, { id }) => [{ type: "Order", id }],
     }),
+
     deleteOrder: builder.mutation({
       query: (id) => ({
         url: `/orders/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Orders"],
+      invalidatesTags: [{ type: "Orders", id: "LIST" }],
       transformErrorResponse,
     }),
   }),
