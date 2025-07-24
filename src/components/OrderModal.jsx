@@ -11,6 +11,8 @@ import {
   useCreateOrderMutation,
   useUpdateOrderMutation,
 } from "../redux/services/mainApi";
+import { formatDate } from "../utils/utils";
+import { ORDER_MODAL_TYPE, STATUSES } from "../constants";
 
 const defaultEmptyValues = {
   clientName: "",
@@ -28,7 +30,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
     register,
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
     reset,
     setValue,
   } = useForm({
@@ -36,6 +38,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
     defaultValues: initialValues || defaultEmptyValues,
   });
 
+  const title = `${type === ORDER_MODAL_TYPE.EDIT ? "Edit" : "Create"} Order`;
   const navigate = useNavigate();
 
   const { fields, append, remove } = useFieldArray({
@@ -53,16 +56,16 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
       const submitedData = {
         ...mainData,
         id: orderId,
-        orderDate: new Date(orderDate).toISOString().slice(0, 10),
+        orderDate: formatDate(orderDate, "yyyy-MM-dd"),
         clientAddress: { street: streetAddress, city, postCode, country },
-        status: "draft",
+        status: STATUSES.DRAFT,
         total: data.products.reduce(
           (total, product) => total + product.lineTotal,
           0
         ),
       };
 
-      if (type === "create") {
+      if (type === ORDER_MODAL_TYPE.CREATE) {
         const data = await triggerCreateOrder(submitedData).unwrap();
         navigate(`/orders/${data.id}`);
       } else {
@@ -71,7 +74,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
         onClose();
       }
     } catch (error) {
-      console.error("Submission error:", error);
+      alert("Submission error:", error);
     }
   };
 
@@ -81,15 +84,19 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
   };
 
   return (
-    <Popup isOpen={isOpen} onClose={onPopupClose} size="2xl">
+    <Popup
+      isOpen={isOpen}
+      onClose={onPopupClose}
+      size="2xl"
+      labelledById={title}
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="scrollbar-hide flex flex-col bg-white h-screen md:rounded-r-3xl">
           <div className="py-5 px-6">
-            <h1 className="font-semibold text-3xl text-center">
-              {type === "edit" ? "Edit" : "Create"} Order
-            </h1>
-
-            <h3 className="text-accent my-4 mt-9 font-medium">Bill To</h3>
+            <h3 className="font-semibold text-3xl text-center" id={title}>
+              {title}
+            </h3>
+            <h4 className="text-accent my-4 mt-9 font-medium">Bill To</h4>
 
             <div className="grid grid-cols-3 mx-1 space-y-4">
               <div className="col-span-3">
@@ -154,7 +161,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
 
           {/* Item List Section */}
 
-          <h2 className="text-2xl text-gray-500 mt-10 ">Item List</h2>
+          <h3 className="text-2xl text-gray-500 mt-10 ">Item List</h3>
 
           <div className="space-y-4 pb-10">
             {fields.map((field, index) => (
@@ -182,10 +189,19 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
 
           <div className="sticky bottom-0 bg-white px-6 py-8 left-0 right-0">
             <div className="flex justify-end gap-4">
-              <Button type="submit" disabled={isSubmitting} variant="primary">
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isDirty}
+                variant="primary"
+              >
                 {isSubmitting ? "Saving..." : "Save"}
               </Button>
-              <Button onClick={onClose} variant="default" type="button">
+              <Button
+                onClick={onClose}
+                variant="default"
+                type="button"
+                disabled={isSubmitting}
+              >
                 Cancel
               </Button>
             </div>

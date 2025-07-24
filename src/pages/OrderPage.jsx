@@ -13,6 +13,7 @@ import StatusSection from "../components/orderPage/StatusSection";
 import OrderDetails from "../components/orderPage/OrderDetails";
 import ProductList from "../components/orderPage/ProductList";
 import TotalAmount from "../components/orderPage/TotalAmount";
+import { ORDER_MODAL_TYPE } from "../constants";
 
 const OrderPage = () => {
   const { orderId } = useParams();
@@ -96,7 +97,7 @@ const OrderPage = () => {
           orderId={order.id}
           isOpen={isOrderModalOpen}
           onClose={() => setIsOrderModalOpen(false)}
-          type="edit"
+          type={ORDER_MODAL_TYPE.EDIT}
         />
       )}
 

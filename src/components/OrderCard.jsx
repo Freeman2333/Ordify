@@ -33,13 +33,13 @@ const OrderCard = ({ id, orderDate, status, clientName, total }) => {
             <span className="text-default-text">#</span>
             {id}
           </p>
-          <p className="text-sm text-gray-400 font-light mt-3">
+          <p className="text-sm text-gray-600 font-light mt-3">
             {formatDate(orderDate)}
           </p>
           <span className="text-xl text-black">{formatCurrency(total)}</span>
         </div>
         <div className="flex flex-col text-right">
-          <p className="text-sm mb-4 text-gray-400 font-light">{clientName}</p>
+          <p className="text-sm mb-4 text-gray-600 font-light">{clientName}</p>
           <Badge type={status} />
         </div>
       </div>

@@ -8,9 +8,11 @@ const TextInput = ({
   disabled = false,
   ...rest
 }) => {
+  const errorId = `${name}-error`;
+
   return (
     <div className={`flex flex-col items-start px-2 py-2 ${wrapperClass}`}>
-      <label htmlFor={name} className="text-gray-400 font-light">
+      <label htmlFor={name} className="text-gray-600 font-light">
         {label}
       </label>
       <input
@@ -18,13 +20,19 @@ const TextInput = ({
         name={name}
         type={type}
         disabled={disabled}
+        aria-invalid={!!error}
+        aria-describedby={error ? errorId : undefined}
         className={`py-2 px-4 border-[.2px] rounded-lg w-full 
           focus:outline-purple-400 border-gray-300 focus:outline-none
           ${error ? "border-red-500 outline-red-500 border-2" : ""}
           ${inputClass}`}
         {...rest}
       />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && (
+        <p id={errorId} className="text-red-500 text-sm mt-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import Button from "../ui/Button";
 import Badge from "../ui/Badge";
 import { useUpdateOrderStatusMutation } from "../../redux/services/mainApi";
+import { STATUSES } from "../../constants";
 
 const StatusSection = ({
   orderStatus,
@@ -14,7 +15,7 @@ const StatusSection = ({
     try {
       await updateOrderStatus({ id: orderId, status: newStatus }).unwrap();
     } catch (error) {
-      console.error("Failed to update order status:", error);
+      alert("Failed to update order status:", error);
     }
   };
   return (
@@ -28,7 +29,7 @@ const StatusSection = ({
         <Button variant="danger" className="ml-3" onClick={onDeleteClick}>
           Delete
         </Button>
-        {orderStatus === "pending" && (
+        {orderStatus === STATUSES.PENDING && (
           <Button
             variant="primary"
             className="ml-3"
@@ -37,7 +38,7 @@ const StatusSection = ({
             Approve
           </Button>
         )}
-        {orderStatus === "draft" && (
+        {orderStatus === STATUSES.DRAFT && (
           <Button
             variant="primary"
             className="ml-3"

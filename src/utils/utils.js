@@ -1,17 +1,24 @@
-export const formatDate = (
-  dateStr,
-  locale = "en-US",
-  options = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }
-) => {
+import { parseISO, format, isValid } from "date-fns";
+
+export const formatDate = (input, formatStr = "MMM d, yyyy") => {
   try {
-    const date = new Date(dateStr);
-    return new Intl.DateTimeFormat(locale, options).format(date);
-  } catch (_) {
-    console.error("Invalid date:", dateStr);
+    let date;
+
+    if (input instanceof Date) {
+      date = input;
+    } else if (typeof input === "string") {
+      date = parseISO(input);
+    } else {
+      throw new Error("Unsupported input type");
+    }
+
+    if (!isValid(date)) {
+      throw new Error("Invalid Date");
+    }
+
+    return format(date, formatStr);
+  } catch (error) {
+    console.error("Invalid date:", input, error);
     return "";
   }
 };

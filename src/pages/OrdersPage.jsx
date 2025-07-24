@@ -8,6 +8,7 @@ import Button from "../components/ui/Button";
 import plusIcon from "../assets/plus.png";
 import OrderModal from "../components/OrderModal";
 import { centerScreen } from "../../styles/sharedClasses";
+import { ORDER_MODAL_TYPE } from "../constants";
 
 const OrdersPage = () => {
   const [searchParams] = useSearchParams();
@@ -77,7 +78,7 @@ const OrdersPage = () => {
         <OrderModal
           isOpen={isOrderModalOpen}
           onClose={() => setIsOrderModalOpen(false)}
-          type="create"
+          type={ORDER_MODAL_TYPE.CREATE}
         />
       )}
     </div>
