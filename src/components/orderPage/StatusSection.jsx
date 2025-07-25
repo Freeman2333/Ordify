@@ -33,7 +33,7 @@ const StatusSection = ({
           <Button
             variant="primary"
             className="ml-3"
-            onClick={() => handleStatusUpdate("approved")}
+            onClick={() => handleStatusUpdate(STATUSES.APPROVED)}
           >
             Approve
           </Button>
@@ -42,7 +42,7 @@ const StatusSection = ({
           <Button
             variant="primary"
             className="ml-3"
-            onClick={() => handleStatusUpdate("pending")}
+            onClick={() => handleStatusUpdate(STATUSES.PENDING)}
           >
             Suspend
           </Button>
