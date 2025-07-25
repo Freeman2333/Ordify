@@ -7,7 +7,10 @@ export const orderSchema = Yup.object({
     .required("Client Email is required"),
   streetAddress: Yup.string().required("Street Address is required"),
   city: Yup.string().required("City is required"),
-  postCode: Yup.string().required("Post Code is required"),
+  postCode: Yup.number()
+    .typeError("Post Code must be a number")
+    .required("Post Code is required")
+    .max(99999999, "Too long"),
   country: Yup.string().required("Country is required"),
   orderDate: Yup.date()
     .required("Order Date is required")
