@@ -40,7 +40,6 @@ const ProductFormItem = ({
               })}
               name={`products.${index}.quantity`}
               label="Qty."
-              type={"number"}
               error={errors?.products?.[index]?.quantity?.message}
             />
           </div>
@@ -51,7 +50,6 @@ const ProductFormItem = ({
               })}
               name={`products.${index}.unitPrice`}
               label="Price"
-              type={"number"}
               error={errors?.products?.[index]?.unitPrice?.message}
             />
           </div>
