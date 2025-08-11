@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams, Navigate } from "react-router";
 
-import leftArrow from "../assets/icon-arrow-left.svg";
 import {
   useDeleteOrderMutation,
   useGetOrderQuery,
@@ -14,6 +13,7 @@ import OrderDetails from "../components/orderPage/OrderDetails";
 import ProductList from "../components/orderPage/ProductList";
 import TotalAmount from "../components/orderPage/TotalAmount";
 import { ORDER_MODAL_TYPE } from "../constants";
+import Icon from "../assets/Icon";
 
 const OrderPage = () => {
   const { orderId } = useParams();
@@ -60,7 +60,7 @@ const OrderPage = () => {
   return (
     <div className="py-[34px] px-2 md:px-8 lg:px-12 lg:py-[72px]">
       <Link to={`/`} className="flex items-center space-x-4 group font-thin">
-        <img src={leftArrow} alt="Go back" />
+        <Icon.ChevronLeft />
         <p className="group-hover:opacity-80">Go back</p>
       </Link>
 

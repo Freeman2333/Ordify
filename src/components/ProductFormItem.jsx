@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useWatch } from "react-hook-form";
 
 import TextInput from "./ui/TextInput";
-import trashIcon from "../assets/trash.svg";
+import Icon from "../assets/Icon";
 
 const ProductFormItem = ({
   index,
@@ -67,7 +67,7 @@ const ProductFormItem = ({
         </div>
 
         <button onClick={onRemove} type="button" className="cursor-pointer">
-          <img className="w-10 h-10 mt-7" src={trashIcon} alt="remove" />
+          <Icon.Trash className="w-4 h-4 mt-7" />
         </button>
       </div>
     </div>

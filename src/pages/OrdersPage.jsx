@@ -5,10 +5,10 @@ import OrderCard from "../components/OrderCard";
 import OrderStatusSelect from "../components/OrderStatusSelect";
 import { useGetOrdersQuery } from "../redux/services/mainApi";
 import Button from "../components/ui/Button";
-import plusIcon from "../assets/plus.png";
 import OrderModal from "../components/OrderModal";
 import { centerScreen } from "../../styles/sharedClasses";
 import { ORDER_MODAL_TYPE } from "../constants";
+import Icon from "../assets/Icon";
 
 const OrdersPage = () => {
   const [searchParams] = useSearchParams();
@@ -50,9 +50,8 @@ const OrdersPage = () => {
           <OrderStatusSelect />
         </div>
         <Button
-          icon={plusIcon}
+          icon={<Icon.Plus className="w-5 h-5" />}
           variant="primary"
-          className="px-2"
           onClick={() => setIsOrderModalOpen(true)}
         >
           New Order

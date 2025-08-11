@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 
 import useClickOutside from "../../hooks/useClickOutside";
-import arrowDown from "../../assets/icon-arrow-down.svg";
+import Icon from "../../assets/Icon";
 
 const Dropdown = ({
   label = "Filter by status",
@@ -31,12 +31,10 @@ const Dropdown = ({
       >
         <span className="hidden md:block font-medium">{label}</span>
         <span className="md:hidden font-medium">Filter</span>
-        <img
-          src={arrowDown}
+        <Icon.ChevronDown
           className={`ml-3 transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
-          }`}
-          alt="arrow down"
+          } w-3 h-3`}
           aria-hidden="true"
         />
       </button>
