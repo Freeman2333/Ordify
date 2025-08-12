@@ -10,6 +10,7 @@ const Button = ({
   icon = null,
   type = "button",
   disabled,
+  isLoading = false,
   ariaLabel,
   ...rest
 }) => {
@@ -28,7 +29,7 @@ const Button = ({
       onClick={onClick}
       className={`${baseButtonClasses} ${sizeClasses} ${disabledClasses} ${buttonVariants[variant]} ${className}`}
       type={type}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       {...ariaProps}
       {...rest}
     >
