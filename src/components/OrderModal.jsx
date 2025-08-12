@@ -25,7 +25,7 @@ const defaultEmptyValues = {
   products: [],
 };
 
-const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
+const OrderModal = ({ isOpen, onClose, type, initialValues, orderId }) => {
   const {
     register,
     control,
@@ -104,7 +104,8 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
                   {...register("clientName")}
                   name="clientName"
                   label="Client Name"
-                  error={errors.clientName?.message}
+                  invalid={!!errors.clientName}
+                  errorMessage={errors.clientName?.message}
                 />
               </div>
               <div className="col-span-3">
@@ -112,7 +113,8 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
                   {...register("clientEmail")}
                   name="clientEmail"
                   label="Client Email"
-                  error={errors.clientEmail?.message}
+                  invalid={!!errors.clientEmail}
+                  errorMessage={errors.clientEmail?.message}
                 />
               </div>
               <div className="col-span-3">
@@ -120,7 +122,8 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
                   {...register("streetAddress")}
                   name="streetAddress"
                   label="Street Address"
-                  error={errors.streetAddress?.message}
+                  invalid={!!errors.streetAddress}
+                  errorMessage={errors.streetAddress?.message}
                 />
               </div>
               <div className="col-span-1">
@@ -128,7 +131,8 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
                   {...register("city")}
                   name="city"
                   label="City"
-                  error={errors.city?.message}
+                  invalid={!!errors.city}
+                  errorMessage={errors.city?.message}
                 />
               </div>
               <div className="col-span-1">
@@ -136,7 +140,8 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
                   {...register("postCode")}
                   name="postCode"
                   label="Post Code"
-                  error={errors.postCode?.message}
+                  invalid={!!errors.postCode}
+                  errorMessage={errors.postCode?.message}
                 />
               </div>
               <div className="col-span-1">
@@ -144,7 +149,8 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
                   {...register("country")}
                   name="country"
                   label="Country"
-                  error={errors.country?.message}
+                  invalid={!!errors.country}
+                  errorMessage={errors.country?.message}
                 />
               </div>
               <div className="col-span-3">
@@ -153,7 +159,8 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
                   name="orderDate"
                   label="Order Date"
                   type="date"
-                  error={errors.orderDate?.message}
+                  invalid={!!errors.orderDate}
+                  errorMessage={errors.orderDate?.message}
                 />
               </div>
             </div>

@@ -24,3 +24,7 @@ body {
   --color-accent: #7c5dfa;
   --color-popup-bg: #14141bbe;
 }
+
+.body-lock {
+  overflow: hidden;
+}

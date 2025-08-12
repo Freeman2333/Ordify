@@ -39,6 +39,7 @@ const DeleteModal = ({
               onClick={() => setIsDeleteModalOpen(false)}
               disabled={isDeleting}
               className="w-full"
+              type="button"
             >
               Cancel
             </Button>

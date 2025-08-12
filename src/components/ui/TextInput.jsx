@@ -2,10 +2,15 @@ const TextInput = ({
   label,
   name,
   type = "text",
-  error = false,
+  invalid = false,
+  errorMessage = "",
   wrapperClass = "",
   inputClass = "",
   disabled = false,
+  min,
+  step,
+  pattern,
+  inputMode,
   ...rest
 }) => {
   const errorId = `${name}-error`;
@@ -20,17 +25,20 @@ const TextInput = ({
         name={name}
         type={type}
         disabled={disabled}
-        aria-invalid={!!error}
-        aria-describedby={error ? errorId : undefined}
+        aria-invalid={invalid}
+        aria-describedby={invalid ? errorId : undefined}
         className={`py-2 px-4 border-[.2px] rounded-lg w-full 
-          focus:outline-purple-400 border-gray-300 focus:outline-none
-          ${error ? "border-red-500 outline-red-500 border-2" : ""}
+          border-gray-300 focus:outline-none
+          ${invalid ? "border-red-500 outline-red-500 border-2" : ""}
           ${inputClass}`}
+        {...(type === "number"
+          ? { min, step, pattern, inputMode: inputMode || "numeric" }
+          : {})}
         {...rest}
       />
-      {error && (
+      {errorMessage && (
         <p id={errorId} className="text-red-500 text-sm mt-1">
-          {error}
+          {errorMessage}
         </p>
       )}
     </div>

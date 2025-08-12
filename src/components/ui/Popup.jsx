@@ -1,13 +1,18 @@
+import { createPortal } from "react-dom";
 import { FocusTrap } from "focus-trap-react";
+import { useEffect } from "react";
 
 const Popup = ({ isOpen, onClose, children, size = "md", labelledById }) => {
+  useEffect(() => {
+    document.body.classList.toggle("body-lock", isOpen);
+    return () => document.body.classList.remove("body-lock");
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleKeyDown = (e) => {
     if (e.key === "Escape") onClose();
   };
-
-  if (!isOpen) return null;
 
   const sizeClasses = {
     sm: "max-w-sm",
@@ -17,7 +22,7 @@ const Popup = ({ isOpen, onClose, children, size = "md", labelledById }) => {
     "2xl": "max-w-2xl",
   };
 
-  return (
+  const popupContent = (
     <FocusTrap>
       <div
         onClick={(e) => {
@@ -37,6 +42,8 @@ const Popup = ({ isOpen, onClose, children, size = "md", labelledById }) => {
       </div>
     </FocusTrap>
   );
+
+  return createPortal(popupContent, document.getElementById("modal-root"));
 };
 
 export default Popup;
