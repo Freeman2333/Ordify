@@ -1,55 +1,67 @@
-import Button from "../ui/Button";
 import Badge from "../ui/Badge";
 import { useUpdateOrderStatusMutation } from "../../redux/services/mainApi";
 import { STATUSES } from "../../constants";
+import ActionButton from "../ActionButton";
 
-const StatusSection = ({
-  orderStatus,
-  orderId,
-  onDeleteClick,
-  onEditClick,
-}) => {
-  const [updateOrderStatus] = useUpdateOrderStatusMutation();
+const OrderActions = ({ orderStatus, orderId, onDeleteClick, onEditClick }) => {
+  const [updateOrderStatus, { isLoading: isUpdating }] =
+    useUpdateOrderStatusMutation();
 
   const handleStatusUpdate = async (newStatus) => {
     try {
       await updateOrderStatus({ id: orderId, status: newStatus }).unwrap();
     } catch (error) {
-      alert("Failed to update order status:", error);
+      console.error("Failed to update order status:", error);
     }
   };
+
   return (
     <div className="mt-8 rounded-lg w-full flex items-center justify-between px-6 py-6 bg-white">
       <div className="flex space-x-2 justify-between md:justify-start md:w-auto w-full items-center">
-        <p className="text-gray-600">Status</p>
+        <p className="text-gray-600 hidden md:block">Status</p>
         <Badge type={orderStatus} />
       </div>
-      <div className="md:block hidden">
-        <Button onClick={onEditClick}>Edit</Button>
-        <Button variant="danger" className="ml-3" onClick={onDeleteClick}>
+
+      <div className="md:block flex items-center">
+        <ActionButton onClick={onEditClick} disabled={isUpdating}>
+          Edit
+        </ActionButton>
+
+        <ActionButton
+          variant="danger"
+          className="ml-3"
+          onClick={onDeleteClick}
+          disabled={isUpdating}
+        >
           Delete
-        </Button>
+        </ActionButton>
+
         {orderStatus === STATUSES.PENDING && (
-          <Button
+          <ActionButton
             variant="primary"
             className="ml-3"
             onClick={() => handleStatusUpdate(STATUSES.APPROVED)}
+            disabled={isUpdating}
+            isLoading={isUpdating}
           >
             Approve
-          </Button>
+          </ActionButton>
         )}
+
         {orderStatus === STATUSES.DRAFT && (
-          <Button
+          <ActionButton
             variant="primary"
             className="ml-3"
             onClick={() => handleStatusUpdate(STATUSES.PENDING)}
+            disabled={isUpdating}
+            isLoading={isUpdating}
           >
             Suspend
-          </Button>
+          </ActionButton>
         )}
       </div>
     </div>
   );
 };
 
-export default StatusSection;
+export default OrderActions;

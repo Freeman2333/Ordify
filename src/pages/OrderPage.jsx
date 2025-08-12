@@ -8,7 +8,7 @@ import {
 import DeleteModal from "../components/DeleteModal";
 import OrderModal from "../components/OrderModal";
 import { centerScreen } from "../../styles/sharedClasses";
-import StatusSection from "../components/orderPage/StatusSection";
+import OrderActions from "../components/orderPage/OrderActions";
 import OrderDetails from "../components/orderPage/OrderDetails";
 import ProductList from "../components/orderPage/ProductList";
 import TotalAmount from "../components/orderPage/TotalAmount";
@@ -31,7 +31,7 @@ const OrderPage = () => {
       await triggerDeleteOrder(orderId).unwrap();
       navigate("/orders");
     } catch (err) {
-      alert(err.data?.message);
+      console.error(err.data?.message);
     } finally {
       setIsDeleteModalOpen(false);
     }
@@ -64,7 +64,7 @@ const OrderPage = () => {
         <p className="group-hover:opacity-80">Go back</p>
       </Link>
 
-      <StatusSection
+      <OrderActions
         orderStatus={order.status}
         orderId={order.id}
         onDeleteClick={() => setIsDeleteModalOpen(true)}

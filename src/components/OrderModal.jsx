@@ -74,7 +74,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
         onClose();
       }
     } catch (error) {
-      alert("Submission error:", error);
+      console.error("Submission error:", error);
     }
   };
 
@@ -177,7 +177,6 @@ const OrderModal = ({ isOpen, onClose, type, initialValues = {}, orderId }) => {
             ))}
 
             <Button
-              type="button"
               onClick={() =>
                 append({ name: "", quantity: 1, price: 0, total: 0 })
               }

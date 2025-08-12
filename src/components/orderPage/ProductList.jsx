@@ -6,7 +6,7 @@ const ProductList = ({ products }) => (
       {products.map((item) => (
         <div key={item.id} className="flex justify-between text-lg">
           <p>{item.name}</p>
-          <p>{formatCurrency(item.total)}</p>
+          <p>{formatCurrency(item.lineTotal)}</p>
         </div>
       ))}
     </div>
