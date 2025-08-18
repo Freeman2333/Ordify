@@ -19,7 +19,7 @@ export const formatDate = (input, formatStr = "MMM d, yyyy") => {
     return format(date, formatStr);
   } catch (error) {
     console.error("Invalid date:", input, error);
-    return "";
+    return null;
   }
 };
 
@@ -31,7 +31,7 @@ export const formatCurrency = (amount, locale = "en-US", currency = "USD") => {
     }).format(amount);
   } catch (_) {
     console.error("Invalid currency format:", amount);
-    return "";
+    return null;
   }
 };
 

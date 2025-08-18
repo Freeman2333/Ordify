@@ -25,7 +25,8 @@ const OrderPage = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { data: order, isLoading, error } = useGetOrderQuery(orderId);
-  const [triggerDeleteOrder] = useDeleteOrderMutation();
+  const [triggerDeleteOrder, { isLoading: isDeleting }] =
+    useDeleteOrderMutation();
 
   const handleDeleteOrder = async () => {
     try {
@@ -39,6 +40,10 @@ const OrderPage = () => {
       setIsDeleteModalOpen(false);
     }
   };
+
+  if (isLoading) {
+    return <div className={centerScreen}>Loading...</div>;
+  }
 
   if (error) {
     return (
@@ -56,16 +61,16 @@ const OrderPage = () => {
     return <div className={centerScreen}>No order {orderId} found</div>;
   }
 
-  if (isLoading) {
-    return <div className={centerScreen}>Loading...</div>;
-  }
-
   return (
     <div className="py-[34px] px-2 md:px-8 lg:px-12 lg:py-[72px]">
-      <Link to={`/`} className="flex items-center space-x-4 group font-thin">
+      <button
+        onClick={() => navigate(-1)}
+        className="flex items-center space-x-4 group font-thin cursor-pointer"
+        aria-label="Go back to the previous page"
+      >
         <Icon.ChevronLeft />
         <p className="group-hover:opacity-80">Go back</p>
-      </Link>
+      </button>
 
       <OrderActions
         orderStatus={order.status}
@@ -109,7 +114,7 @@ const OrderPage = () => {
         isDeleteModalOpen={isDeleteModalOpen}
         onDeleteButtonClick={handleDeleteOrder}
         setIsDeleteModalOpen={setIsDeleteModalOpen}
-        isDeleting={isLoading}
+        isDeleting={isDeleting}
       />
     </div>
   );

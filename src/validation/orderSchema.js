@@ -1,24 +1,40 @@
 import * as Yup from "yup";
 
 export const orderSchema = Yup.object({
-  clientName: Yup.string().required("Client Name is required"),
+  clientName: Yup.string()
+    .trim()
+    .matches(/\S+/, "Client Name cannot be empty or whitespace")
+    .required("Client Name is required"),
   clientEmail: Yup.string()
+    .trim()
     .email("Invalid email")
     .required("Client Email is required"),
-  streetAddress: Yup.string().required("Street Address is required"),
-  city: Yup.string().required("City is required"),
+  streetAddress: Yup.string()
+    .trim()
+    .matches(/\S+/, "Street Address cannot be empty or whitespace")
+    .required("Street Address is required"),
+  city: Yup.string()
+    .trim()
+    .matches(/\S+/, "City cannot be empty or whitespace")
+    .required("City is required"),
   postCode: Yup.number()
     .typeError("Post Code must be a number")
     .required("Post Code is required")
     .max(99999999, "Too long"),
-  country: Yup.string().required("Country is required"),
+  country: Yup.string()
+    .trim()
+    .matches(/\S+/, "Country cannot be empty or whitespace")
+    .required("Country is required"),
   orderDate: Yup.date()
     .required("Order Date is required")
     .typeError("Order Date must be a valid date"),
   products: Yup.array()
     .of(
       Yup.object({
-        name: Yup.string().required("Product name is required"),
+        name: Yup.string()
+          .trim()
+          .matches(/\S+/, "Product name cannot be empty or whitespace")
+          .required("Product name is required"),
         quantity: Yup.number()
           .min(0, "Quantity cannot be negative")
           .required("Quantity is required"),

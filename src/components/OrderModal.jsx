@@ -200,7 +200,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues, orderId }) => {
 
             <Button
               onClick={() =>
-                append({ name: "", quantity: 1, price: 0, total: 0 })
+                append({ name: "", quantity: 1, unitPrice: 0, lineTotal: 0 })
               }
               className="w-full mt-4"
             >

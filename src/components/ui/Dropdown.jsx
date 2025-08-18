@@ -40,29 +40,25 @@ const Dropdown = ({
       </button>
 
       {isOpen && (
-        <div
-          className="w-40 absolute bg-white shadow-2xl rounded-xl mt-3 px-6 py-4 space-y-2 z-10"
+        <ul
+          className="w-40 absolute bg-white shadow-2xl rounded-xl mt-3 py-2 z-10"
           role="listbox"
           aria-label="Filter by status"
         >
           {options.map((item) => (
-            <div
+            <li
               key={item}
               onClick={() => handleChange(item)}
-              className="flex items-center space-x-2 cursor-pointer"
+              className={`flex items-center px-4 py-2 cursor-pointer rounded-md ${
+                selected === item ? "bg-accent text-white" : "hover:bg-gray-100"
+              }`}
               role="option"
               aria-selected={selected === item}
             >
-              <input
-                type="checkbox"
-                checked={selected === item}
-                readOnly
-                className="accent-accent"
-              />
-              <p>{item}</p>
-            </div>
+              {item}
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

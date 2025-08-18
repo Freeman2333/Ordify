@@ -20,6 +20,11 @@ const ProductFormItem = ({
     setValue(`products.${index}.lineTotal`, total);
   }, [price, quantity, index, setValue]);
 
+  const nameError = errors?.products?.[index]?.name?.message;
+  const quantityError = errors?.products?.[index]?.quantity?.message;
+  const unitPriceError = errors?.products?.[index]?.unitPrice?.message;
+  const lineTotalError = errors?.products?.[index]?.lineTotal?.message;
+
   return (
     <div>
       <div className="flex text-black justify-between items-center">
@@ -29,7 +34,8 @@ const ProductFormItem = ({
               {...register(`products.${index}.name`)}
               name={`products.${index}.name`}
               label="Product Name"
-              error={errors?.products?.[index]?.name?.message}
+              invalid={!!nameError}
+              errorMessage={nameError}
               type="text"
             />
           </div>
@@ -40,7 +46,8 @@ const ProductFormItem = ({
               })}
               name={`products.${index}.quantity`}
               label="Qty."
-              error={errors?.products?.[index]?.quantity?.message}
+              invalid={!!quantityError}
+              errorMessage={quantityError}
             />
           </div>
           <div className="col-span-1">
@@ -50,7 +57,8 @@ const ProductFormItem = ({
               })}
               name={`products.${index}.unitPrice`}
               label="Price"
-              error={errors?.products?.[index]?.unitPrice?.message}
+              invalid={!!unitPriceError}
+              errorMessage={unitPriceError}
             />
           </div>
           <div className="col-span-1 flex flex-col">
@@ -59,14 +67,20 @@ const ProductFormItem = ({
               disabled
               name={`products.${index}.lineTotal`}
               label="Total"
-              error={errors?.products?.[index]?.lineTotal?.message}
+              invalid={!!lineTotalError}
+              errorMessage={lineTotalError}
               type="number"
               min={0}
             />
           </div>
         </div>
 
-        <button onClick={onRemove} type="button" className="cursor-pointer">
+        <button
+          onClick={onRemove}
+          type="button"
+          className="cursor-pointer"
+          aria-label="Remove product"
+        >
           <Icon.Trash className="w-4 h-4 mt-7" />
         </button>
       </div>

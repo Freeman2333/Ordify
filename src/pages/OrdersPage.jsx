@@ -30,10 +30,6 @@ const OrdersPage = () => {
     );
   }
 
-  if (!orders?.length) {
-    return <div className={centerScreen}>No orders found</div>;
-  }
-
   return (
     <div className="p-10 flex flex-col">
       {/* Header */}
@@ -60,16 +56,22 @@ const OrdersPage = () => {
 
       {/* Orders Cards */}
       <div className="mt-10 space-y-4">
-        {orders.map((order) => (
-          <OrderCard
-            key={order.id}
-            id={order.id}
-            orderDate={order.orderDate}
-            status={order.status}
-            total={order.total}
-            clientName={order.clientName}
-          />
-        ))}
+        {orders.length === 0 && (
+          <div className="flex justify-center align-center">
+            There are no orders. Please create an order
+          </div>
+        )}
+        {!!orders.length &&
+          orders.map((order) => (
+            <OrderCard
+              key={order.id}
+              id={order.id}
+              orderDate={order.orderDate}
+              status={order.status}
+              total={order.total}
+              clientName={order.clientName}
+            />
+          ))}
       </div>
 
       {/* Order Popup */}
