@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { useState } from "react";
 import { Link, useNavigate, useParams, Navigate } from "react-router";
 
@@ -29,9 +30,11 @@ const OrderPage = () => {
   const handleDeleteOrder = async () => {
     try {
       await triggerDeleteOrder(orderId).unwrap();
+
+      toast.success("Order deleted successfully");
       navigate("/orders");
     } catch (err) {
-      console.error(err.data?.message);
+      toast.error(err.data?.message);
     } finally {
       setIsDeleteModalOpen(false);
     }

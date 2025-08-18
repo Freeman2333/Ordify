@@ -34,3 +34,10 @@ export const formatCurrency = (amount, locale = "en-US", currency = "USD") => {
     return "";
   }
 };
+
+export const generateId = () => {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+};

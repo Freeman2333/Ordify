@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 import Badge from "../ui/Badge";
 import { useUpdateOrderStatusMutation } from "../../redux/services/mainApi";
 import { STATUSES } from "../../constants";
@@ -10,8 +12,9 @@ const OrderActions = ({ orderStatus, orderId, onDeleteClick, onEditClick }) => {
   const handleStatusUpdate = async (newStatus) => {
     try {
       await updateOrderStatus({ id: orderId, status: newStatus }).unwrap();
+      toast.success(`Order status updated to ${newStatus}`);
     } catch (error) {
-      console.error("Failed to update order status:", error);
+      toast.error("Failed to update order status:", error);
     }
   };
 

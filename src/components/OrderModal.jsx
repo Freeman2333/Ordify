@@ -1,6 +1,8 @@
+import { useId } from "react";
 import { useNavigate } from "react-router";
 import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 import Button from "./ui/Button";
 import Popup from "./ui/Popup";
@@ -11,7 +13,7 @@ import {
   useCreateOrderMutation,
   useUpdateOrderMutation,
 } from "../redux/services/mainApi";
-import { formatDate } from "../utils/utils";
+import { formatDate, generateId } from "../utils/utils";
 import { ORDER_MODAL_TYPE, STATUSES } from "../constants";
 
 const defaultEmptyValues = {
@@ -39,6 +41,8 @@ const OrderModal = ({ isOpen, onClose, type, initialValues, orderId }) => {
   });
 
   const title = `${type === ORDER_MODAL_TYPE.EDIT ? "Edit" : "Create"} Order`;
+  const descId = useId();
+
   const navigate = useNavigate();
 
   const { fields, append, remove } = useFieldArray({
@@ -66,15 +70,26 @@ const OrderModal = ({ isOpen, onClose, type, initialValues, orderId }) => {
       };
 
       if (type === ORDER_MODAL_TYPE.CREATE) {
-        const data = await triggerCreateOrder(submitedData).unwrap();
+        const finalData = {
+          ...submitedData,
+          products: submitedData.products.map((product) => ({
+            ...product,
+            id: generateId(),
+          })),
+        };
+
+        const data = await triggerCreateOrder(finalData).unwrap();
+
+        toast.success("Order created successfully");
         navigate(`/orders/${data.id}`);
       } else {
         await triggerUpdateOrder(submitedData).unwrap();
 
+        toast.success("Order updated successfully");
         onClose();
       }
     } catch (error) {
-      console.error("Submission error:", error);
+      toast.error("Submission error:", error);
     }
   };
 
@@ -88,7 +103,7 @@ const OrderModal = ({ isOpen, onClose, type, initialValues, orderId }) => {
       isOpen={isOpen}
       onClose={onPopupClose}
       size="2xl"
-      labelledById={title}
+      labelledById={descId}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="scrollbar-hide flex flex-col bg-white h-screen md:rounded-r-3xl">
