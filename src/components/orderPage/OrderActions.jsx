@@ -19,13 +19,13 @@ const OrderActions = ({ orderStatus, orderId, onDeleteClick, onEditClick }) => {
   };
 
   return (
-    <div className="mt-8 rounded-lg w-full flex items-center justify-between px-6 py-6 bg-white">
+    <div className="mt-8 rounded-lg w-full flex flex-wrap items-center justify-between px-6 py-6 bg-white gap-y-2">
       <div className="flex space-x-2 justify-between md:justify-start md:w-auto w-full items-center">
         <p className="text-gray-600 hidden md:block">Status</p>
         <Badge type={orderStatus} />
       </div>
 
-      <div className="md:block flex items-center">
+      <div className="flex items-center flex-wrap gap-y-2">
         <ActionButton onClick={onEditClick} disabled={isUpdating}>
           Edit
         </ActionButton>

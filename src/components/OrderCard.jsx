@@ -12,7 +12,7 @@ const OrderCard = ({ id, orderDate, status, clientName, total }) => {
       )} by ${clientName}, total ${formatCurrency(total)}, status ${status}`}
     >
       {/* Big Screen */}
-      <div className="hidden md:flex cursor-pointer duration-100 ease-in-out hover:border border-purple-500 py-4 shadow-sm px-6 bg-white rounded-lg items-center justify-between mb-3">
+      <div className="hidden md:flex cursor-pointer duration-100 ease-in-out border border-transparent hover:border-purple-500 py-4 shadow-sm px-6 bg-white rounded-lg items-center justify-between mb-3">
         <div className="flex items-center">
           <p>
             <span className="text-default-text">#</span>
