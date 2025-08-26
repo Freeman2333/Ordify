@@ -1,18 +1,25 @@
-export const formatDate = (
-  dateStr,
-  locale = "en-US",
-  options = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }
-) => {
+import { parseISO, format, isValid } from "date-fns";
+
+export const formatDate = (input, formatStr = "MMM d, yyyy") => {
   try {
-    const date = new Date(dateStr);
-    return new Intl.DateTimeFormat(locale, options).format(date);
-  } catch (_) {
-    console.error("Invalid date:", dateStr);
-    return "";
+    let date;
+
+    if (input instanceof Date) {
+      date = input;
+    } else if (typeof input === "string") {
+      date = parseISO(input);
+    } else {
+      throw new Error("Unsupported input type");
+    }
+
+    if (!isValid(date)) {
+      throw new Error("Invalid Date");
+    }
+
+    return format(date, formatStr);
+  } catch (error) {
+    console.error("Invalid date:", input, error);
+    return null;
   }
 };
 
@@ -24,6 +31,13 @@ export const formatCurrency = (amount, locale = "en-US", currency = "USD") => {
     }).format(amount);
   } catch (_) {
     console.error("Invalid currency format:", amount);
-    return "";
+    return null;
   }
+};
+
+export const generateId = () => {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
 };

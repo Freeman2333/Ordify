@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 
 import useClickOutside from "../../hooks/useClickOutside";
-import arrowDown from "../../assets/icon-arrow-down.svg";
+import Icon from "../../assets/Icon";
 
 const Dropdown = ({
   label = "Filter by status",
@@ -31,40 +31,34 @@ const Dropdown = ({
       >
         <span className="hidden md:block font-medium">{label}</span>
         <span className="md:hidden font-medium">Filter</span>
-        <img
-          src={arrowDown}
+        <Icon.ChevronDown
           className={`ml-3 transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
-          }`}
-          alt="arrow down"
+          } w-3 h-3`}
           aria-hidden="true"
         />
       </button>
 
       {isOpen && (
-        <div
-          className="w-40 absolute bg-white shadow-2xl rounded-xl mt-3 px-6 py-4 space-y-2 z-10"
+        <ul
+          className="w-40 absolute bg-white shadow-2xl rounded-xl mt-3 py-2 z-10"
           role="listbox"
           aria-label="Filter by status"
         >
           {options.map((item) => (
-            <div
+            <li
               key={item}
               onClick={() => handleChange(item)}
-              className="flex items-center space-x-2 cursor-pointer"
+              className={`flex items-center px-4 py-2 cursor-pointer rounded-md ${
+                selected === item ? "bg-accent text-white" : "hover:bg-gray-100"
+              }`}
               role="option"
               aria-selected={selected === item}
             >
-              <input
-                type="checkbox"
-                checked={selected === item}
-                readOnly
-                className="accent-accent"
-              />
-              <p>{item}</p>
-            </div>
+              {item}
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

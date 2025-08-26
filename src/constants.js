@@ -3,3 +3,8 @@ export const STATUSES = {
   PENDING: "pending",
   DRAFT: "draft",
 };
+
+export const ORDER_MODAL_TYPE = {
+  EDIT: "edit",
+  CREATE: "create",
+};

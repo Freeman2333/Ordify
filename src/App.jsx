@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router";
 
 import ErrorBoundary from "./components/ErrorBoundary";
 import { centerScreen } from "../styles/sharedClasses";
+import { ToastContainer } from "react-toastify";
 
 const OrdersPage = lazy(() => import("./pages/OrdersPage"));
 const OrderPage = lazy(() => import("./pages/OrderPage"));
@@ -12,6 +13,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div className={centerScreen}>Loading...</div>}>
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Navigate to="/orders" replace />} />
           <Route element={<MainLayout />}>

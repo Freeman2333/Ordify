@@ -5,9 +5,14 @@ import { formatCurrency, formatDate } from "../utils/utils";
 
 const OrderCard = ({ id, orderDate, status, clientName, total }) => {
   return (
-    <Link to={`/orders/${id}`}>
+    <Link
+      to={`/orders/${id}`}
+      aria-label={`View order #${id} placed on ${formatDate(
+        orderDate
+      )} by ${clientName}, total ${formatCurrency(total)}, status ${status}`}
+    >
       {/* Big Screen */}
-      <div className="hidden md:flex cursor-pointer duration-100 ease-in-out hover:border border-purple-500 py-4 shadow-sm px-6 bg-white rounded-lg items-center justify-between mb-3">
+      <div className="hidden md:flex cursor-pointer duration-100 ease-in-out border border-transparent hover:border-purple-500 py-4 shadow-sm px-6 bg-white rounded-lg items-center justify-between mb-3">
         <div className="flex items-center">
           <p>
             <span className="text-default-text">#</span>
@@ -33,13 +38,13 @@ const OrderCard = ({ id, orderDate, status, clientName, total }) => {
             <span className="text-default-text">#</span>
             {id}
           </p>
-          <p className="text-sm text-gray-400 font-light mt-3">
+          <p className="text-sm text-gray-600 font-light mt-3">
             {formatDate(orderDate)}
           </p>
           <span className="text-xl text-black">{formatCurrency(total)}</span>
         </div>
         <div className="flex flex-col text-right">
-          <p className="text-sm mb-4 text-gray-400 font-light">{clientName}</p>
+          <p className="text-sm mb-4 text-gray-600 font-light">{clientName}</p>
           <Badge type={status} />
         </div>
       </div>
