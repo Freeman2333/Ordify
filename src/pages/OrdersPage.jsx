@@ -6,6 +6,7 @@ import OrderStatusSelect from "../components/OrderStatusSelect";
 import { useGetOrdersQuery } from "../redux/services/mainApi";
 import Button from "../components/ui/Button";
 import OrderModal from "../components/OrderModal";
+import MonthlyUnitsCard from "../components/MonthlyUnitsCard";
 import { centerScreen } from "../../styles/sharedClasses";
 import { ORDER_MODAL_TYPE } from "../constants";
 import Icon from "../assets/Icon";
@@ -15,6 +16,8 @@ const OrdersPage = () => {
   const status = searchParams.get("status") || "";
 
   const { data: orders, isLoading, error } = useGetOrdersQuery({ status });
+  // Fetch all orders for statistics (unfiltered)
+  const { data: allOrders } = useGetOrdersQuery({ status: "" });
 
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
 
@@ -53,6 +56,13 @@ const OrdersPage = () => {
           New Order
         </Button>
       </div>
+
+      {/* Monthly Units Statistics */}
+      {allOrders && allOrders.length > 0 && (
+        <div className="mt-6">
+          <MonthlyUnitsCard orders={allOrders} />
+        </div>
+      )}
 
       {/* Orders Cards */}
       <div className="mt-10 space-y-4">
