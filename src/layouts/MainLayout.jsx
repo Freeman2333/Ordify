@@ -4,7 +4,6 @@ const MainLayout = () => {
   return (
     <div className="min-h-screen max-w-3xl mx-auto">
       <Outlet />
-      //test
     </div>
   );
 };
